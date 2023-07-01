@@ -1,9 +1,9 @@
 name: waiter_example
-description: Demonstrates how to use the waiter plugin.
+description: A Flutter project for full picker example.
 publish_to: 'none'
 
 environment:
-  sdk: ">=2.17.0 <4.0.0"
+  sdk: '>=3.0.0 <4.0.0'
 
 dependencies:
   flutter:
@@ -12,6 +12,8 @@ dependencies:
   waiter:
     path: ../
 
+  # Toast
+  fluttertoast: ^8.2.2
 
 dev_dependencies:
   flutter_test:

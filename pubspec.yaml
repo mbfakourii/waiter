@@ -13,8 +13,13 @@ dependencies:
   flutter:
     sdk: flutter
 
+  # Lottie
   lottie: ^2.4.0
+
+  # Toast
   fluttertoast: ^8.2.2
+
+  # Sizer
   responsive_sizer: ^3.1.1
 
 dev_dependencies:
@@ -25,7 +30,7 @@ dev_dependencies:
 
 flutter:
   assets:
-    - packages/waiter/assets/.
+    - assets/
 
 screenshots:
   - description: Waiter logo.

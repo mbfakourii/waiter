@@ -60,11 +60,6 @@ class _WaiterState extends State<Waiter> {
 
   Color? backgroundColor = const Color(0xB4636060);
 
-  TextStyle buttonStyle3 =
-      TextStyle(fontWeight: FontWeight.bold, fontSize: 16.sp);
-  TextStyle textStyle3 =
-      TextStyle(fontWeight: FontWeight.normal, fontSize: 18.sp);
-
   @override
   void dispose() {
     if (widget.onCancelProgress != null) {
@@ -369,7 +364,7 @@ class _WaiterState extends State<Waiter> {
                                                 globalLanguage.confirm,
                                                 style: TextStyle(
                                                     fontWeight: FontWeight.bold,
-                                                    fontSize: 16.sp),
+                                                    fontSize: 17.sp),
                                               ),
                                               onPressed: () {
                                                 widget.callback.hiddenLoading(
@@ -392,7 +387,9 @@ class _WaiterState extends State<Waiter> {
                                           width: widthTryError,
                                           child: TextButton(
                                             child: Text(globalLanguage.tryAgain,
-                                                style: buttonStyle3),
+                                                style: TextStyle(
+                                                    fontWeight: FontWeight.bold,
+                                                    fontSize: 17.sp)),
                                             onPressed: () {
                                               if (tags.isEmpty) {
                                                 throw "tags is empty!";
@@ -457,7 +454,9 @@ class _WaiterState extends State<Waiter> {
                                         padding: EdgeInsets.only(
                                             bottom: 1.h, top: 1.h),
                                         child: Text(globalLanguage.pleaseWait,
-                                            style: textStyle3),
+                                            style: TextStyle(
+                                                fontWeight: FontWeight.bold,
+                                                fontSize: 17.sp)),
                                       ),
                                       Container(
                                         padding: const EdgeInsets.all(10),
@@ -470,7 +469,9 @@ class _WaiterState extends State<Waiter> {
                                                   const EdgeInsetsDirectional
                                                       .only(end: 9),
                                               child: Text("%$textPercent",
-                                                  style: textStyle3),
+                                                  style: TextStyle(
+                                                      fontWeight: FontWeight.bold,
+                                                      fontSize: 17.sp)),
                                             ),
                                             Expanded(
                                               child: SizedBox(
@@ -503,9 +504,13 @@ class _WaiterState extends State<Waiter> {
                                                 child: Row(
                                                   children: [
                                                     Text("$textCurrent/",
-                                                        style: textStyle3),
+                                                        style: TextStyle(
+                                                            fontWeight: FontWeight.bold,
+                                                            fontSize: 17.sp)),
                                                     Text(textTotal,
-                                                        style: textStyle3),
+                                                        style: TextStyle(
+                                                            fontWeight: FontWeight.bold,
+                                                            fontSize: 17.sp)),
                                                   ],
                                                 ),
                                               ),
@@ -517,7 +522,9 @@ class _WaiterState extends State<Waiter> {
                                           width: widthTryError,
                                           child: TextButton(
                                             child: Text(globalLanguage.cancel,
-                                                style: buttonStyle3),
+                                                style: TextStyle(
+                                                    fontWeight: FontWeight.bold,
+                                                    fontSize: 17.sp)),
                                             onPressed: () {
                                               widget.onCancelProgress?.call(
                                                   widget.callback.model

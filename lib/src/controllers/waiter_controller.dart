@@ -27,14 +27,6 @@ class WaiterController extends ValueNotifier<WaiterValue> {
     _model = WaiterModel().hiddenLoading(tag);
   }
 
-  void showErrorWithOutOK(String value) {
-    _model = WaiterModel().showErrorWithOutOK(value);
-  }
-
-  void showErrorToastWithOutOK(String tag, String toast) {
-    _model = WaiterModel().showErrorToastWithOutOK(tag, toast);
-  }
-
   void showError(String tag) {
     _model = WaiterModel().showError(tag);
   }
@@ -43,12 +35,24 @@ class WaiterController extends ValueNotifier<WaiterValue> {
     _model = WaiterModel().showErrorToast(tag, toast);
   }
 
+  void showErrorWithOutOK(String value) {
+    _model = WaiterModel().showErrorWithOutOK(value);
+  }
+
+  void showErrorToastWithOutOK(String tag, String toast) {
+    _model = WaiterModel().showErrorToastWithOutOK(tag, toast);
+  }
+
   void hiddenError() {
     _model = WaiterModel().hiddenError();
   }
 
   void showProgress(String tag) {
     _model = WaiterModel().showProgress(tag);
+  }
+
+  void hiddenProgress(String tag) {
+    _model = WaiterModel().hiddenLoading(tag);
   }
 }
 
