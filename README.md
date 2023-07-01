@@ -73,6 +73,7 @@ Waiter(
 );
 
 ...
+
 waiterController.showProgress("progressTag1");
 
 totalNumberProgress.value = 1;
