@@ -395,7 +395,9 @@ class _WaiterState extends State<Waiter> {
                                                 throw "tags is empty!";
                                               }
 
-                                              for (var tag in tags) {
+                                              for (var tag
+                                                  in Set<String>.from(tags)
+                                                      .toList()) {
                                                 widget.onTry!.call(tag);
                                               }
 
