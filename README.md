@@ -2,7 +2,7 @@
 
 # Waiter
 [![pub package](https://img.shields.io/pub/v/waiter.svg)](https://pub.dev/packages/waiter)</br>
-A flutter package to show loading error and progress bar
+A Flutter package to display loading indicators, error messages, and progress bars.
 
 ## Features
 * Show loading
