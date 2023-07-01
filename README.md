@@ -55,17 +55,17 @@ ValueNotifier<int> totalNumberProgress = ValueNotifier<int>(0);
 Waiter(
   callback: waiterController,
   onTry: (value) {
-	print("onTry");
+    print("onTry");
   },
   firstLoadShowLoading: true,
   progress: progress,
   currentNumberProgress: currentNumberProgress,
   totalNumberProgress: totalNumberProgress,
   onCancelProgress: (value) {
-	print("onCancelProgress");
+    print("onCancelProgress");
   },
   onCloseProgress: () {
-	print("onCloseProgress");
+    print("onCloseProgress");
   },
   child: Scaffold(
 	...
