@@ -28,6 +28,10 @@ Waiter(
     callback: waiterController,
     onTry: (value) {
       print("onTry");
+      
+      if(value == "errorTag"){
+        print("errorTag");    
+      }
     },
     firstLoadShowLoading: false,
     child: Scaffold(
@@ -38,6 +42,7 @@ Waiter(
 ...
     
 waiterController.showLoading();
+waiterController.showError("errorTag");
 ```
 
 ### Progress
@@ -74,7 +79,7 @@ Waiter(
 
 ...
 
-waiterController.showProgress("progressTag1");
+waiterController.showProgress("progressTag");
 
 totalNumberProgress.value = 1;
 currentNumberProgress.value = 1;
