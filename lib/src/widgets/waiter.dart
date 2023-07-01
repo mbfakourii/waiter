@@ -470,7 +470,8 @@ class _WaiterState extends State<Waiter> {
                                                       .only(end: 9),
                                               child: Text("%$textPercent",
                                                   style: TextStyle(
-                                                      fontWeight: FontWeight.bold,
+                                                      fontWeight:
+                                                          FontWeight.bold,
                                                       fontSize: 17.sp)),
                                             ),
                                             Expanded(
@@ -505,11 +506,13 @@ class _WaiterState extends State<Waiter> {
                                                   children: [
                                                     Text("$textCurrent/",
                                                         style: TextStyle(
-                                                            fontWeight: FontWeight.bold,
+                                                            fontWeight:
+                                                                FontWeight.bold,
                                                             fontSize: 17.sp)),
                                                     Text(textTotal,
                                                         style: TextStyle(
-                                                            fontWeight: FontWeight.bold,
+                                                            fontWeight:
+                                                                FontWeight.bold,
                                                             fontSize: 17.sp)),
                                                   ],
                                                 ),

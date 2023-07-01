@@ -156,8 +156,10 @@ class _WaiterTestState extends State<WaiterTest> {
   }
 
   void _openDialog(BuildContext context) {
-    showDialog(context: context, builder: (context) {
-     return const DialogShow();
-    });
+    showDialog(
+        context: context,
+        builder: (context) {
+          return const DialogShow();
+        });
   }
 }

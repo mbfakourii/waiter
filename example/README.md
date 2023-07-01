@@ -1,6 +1,6 @@
 # waiter_example
 
-Demonstrates how to use the waiter plugin.
+A Flutter project for full picker example.
 
 ## Getting Started
 

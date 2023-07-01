@@ -34,8 +34,8 @@ class _DialogShowState extends State<DialogShow> {
               firstLoadShowLoading: true,
               mainKey: mainKey,
               callback: waiterController,
-              child:  Padding(
-                padding: const EdgeInsets.only(left: 10,right: 10),
+              child: Padding(
+                padding: const EdgeInsets.only(left: 10, right: 10),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisSize: MainAxisSize.min,

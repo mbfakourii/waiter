@@ -36,12 +36,10 @@ class _SheetShowState extends State<SheetShow> {
             ListTile(
               leading: Icon(Icons.email),
               title: Text('Send email'),
-
             ),
             ListTile(
               leading: Icon(Icons.phone),
               title: Text('Call phone'),
-
             ),
             ListTile(
               leading: Icon(Icons.access_time_filled),
