@@ -1,7 +1,7 @@
 ![logo](https://github.com/mbfakourii/waiter/assets/20955005/332d38a3-13e6-4e2e-a7ab-127b4f99756f)
 
 # Waiter
-[![pub package](https://img.shields.io/pub/v/waiter.svg)](https://pub.dev/packages/waiter)
+[![pub package](https://img.shields.io/pub/v/waiter.svg)](https://pub.dev/packages/waiter)</br>
 A flutter package to show loading error and progress bar
 
 ## Features
