@@ -68,7 +68,7 @@ Waiter(
     print("onCloseProgress");
   },
   child: Scaffold(
-	...
+    ...
   ),
 );
 
