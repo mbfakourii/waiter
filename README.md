@@ -1,45 +1,80 @@
-
 ![logo](https://github.com/mbfakourii/waiter/assets/20955005/332d38a3-13e6-4e2e-a7ab-127b4f99756f)
 
 # Waiter
 <a href="https://pub.dev/packages/waiter"><img src="https://img.shields.io/pub/v/waiter.svg" alt="Pub"></a></br>
 A flutter package to show loading error and progress bar
+[![pub package](https://img.shields.io/pub/v/waiter.svg)](https://pub.dev/packages/waiter)
 
 ## Features
 * Show loading
 * Show error
 * Show progress
+* Manage retries
 * Support sheets
 * Support dialogs
 * Support Material 1,2,3
 
 ## Example App
-<img src="https://raw.githubusercontent.com/mbfakourii/full_picker/master/example/screenshots/example.gif" width="300" height="550" />
+<img src="https://raw.githubusercontent.com/mbfakourii/waiter/master/example/screenshots/example.gif" width="300" height="550" />
 
 ## Usage
 Quick simple usage example:
 
 ```dart
-FullPicker(
-  context: context,
-  prefixName: "test",
-  file: true,
-  image: true,
-  video: true,
-  videoCamera: true,
-  imageCamera: true,
-  voiceRecorder: true,
-  videoCompressor: false,
-  imageCropper: false,
-  multiFile: true,
-  url: true,
-  onError: (int value) {
-    print(" ----  onError ----=$value");
-  },
-  onSelected: (value) {
-    print(" ----  onSelected ----");
-  },
+WaiterController waiterController = WaiterController();
+
+...
+
+Waiter(
+    callback: waiterController,
+    onTry: (value) {
+      print("onTry");
+    },
+    firstLoadShowLoading: false,
+    child: Scaffold(
+      ...
+    ),
 );
+```
+
+### Progress
+If you need progress, you can use the following code
+
+```dart
+WaiterController waiterController = WaiterController();
+
+ValueNotifier<double> progress = ValueNotifier<double>(0);
+ValueNotifier<int> currentNumberProgress = ValueNotifier<int>(0);
+ValueNotifier<int> totalNumberProgress = ValueNotifier<int>(0);
+
+...
+
+Waiter(
+  callback: waiterController,
+  onTry: (value) {
+	print("onTry");
+  },
+  firstLoadShowLoading: true,
+  progress: progress,
+  currentNumberProgress: currentNumberProgress,
+  totalNumberProgress: totalNumberProgress,
+  onCancelProgress: (value) {
+	print("onCancelProgress");
+  },
+  onCloseProgress: () {
+	print("onCloseProgress");
+  },
+  child: Scaffold(
+	...
+  ),
+);
+
+...
+waiterController.showProgress("progressTag1");
+
+totalNumberProgress.value = 1;
+currentNumberProgress.value = 1;
+progress.value = 50.0;
 ```
 
 ## Multi Language
@@ -47,23 +82,12 @@ There is a possibility of customization for different languages in this package<
 
 ```dart
 Language language = Language.copy(
-    camera: S.current.camera,
-    selectFile: S.current.selectFile,
-    file: S.current.file,
-    voiceRecorder: S.current.voiceRecorder,
-    url: S.current.url,
-    enterURL: S.current.enterURL,
+    confirm: S.current.confirm,
+    pleaseWait: S.current.pleaseWait,
     cancel: S.current.cancel,
-    ok: S.current.ok,
-    gallery: S.current.gallery,
-    cropper: S.current.cropper,
-    onCompressing: S.current.onCompressing,
-    tapForPhotoHoldForVideo: S.current.tapForPhotoHoldForVideo,
-    cameraNotFound: S.current.cameraNotFound,
-    noVoiceRecorded: S.current.noVoiceRecorded,
-    denyAccessPermission: S.current.denyAccessPermission);
+    tryAgain: S.current.tryAgain);
     
-FullPicker(
+Waiter(
   ...
   language: language,
   ...
