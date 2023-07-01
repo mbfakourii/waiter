@@ -34,6 +34,10 @@ Waiter(
       ...
     ),
 );
+
+...
+    
+waiterController.showLoading();
 ```
 
 ### Progress
