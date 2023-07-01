@@ -1,4 +1,4 @@
-/// language texts
+/// language texts.
 class Language {
   String confirm = "Confirm";
   String tryAgain = "Try Again";
@@ -7,7 +7,7 @@ class Language {
 
   Language();
 
-  /// help for cheng language texts
+  /// help for cheng language texts.
   Language.copy(
       {required this.confirm,
       required this.pleaseWait,

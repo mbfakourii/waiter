@@ -5,10 +5,10 @@ import '../../waiter.dart';
 class WaiterController extends ValueNotifier<WaiterValue> {
   WaiterController() : super(WaiterValue(model: WaiterModel()));
 
-  /// handel onTry
+  /// handel onTry.
   ValueNotifier<String> onTry = ValueNotifier<String>("");
 
-  /// main waiter model
+  /// main waiter model.
   WaiterModel get model => value.model;
 
   set _model(WaiterModel newElm) {
@@ -17,63 +17,71 @@ class WaiterController extends ValueNotifier<WaiterValue> {
     );
   }
 
-  /// waiter is visible
+  /// waiter is visible.
   bool get isVisible => value.model.isVisible;
 
-  /// get type waiter
-  /// contain `loading`,`hiddenLoading`,`errorWithOutOK`,`error`,`progress`
+  /// get type waiter.
+  ///
+  /// contain `loading`,`hiddenLoading`,`errorWithOutOK`,`error`,`progress`.
   String get type => value.model.type;
 
-  /// show loading
+  /// show loading.
   void showLoading() {
     _model = WaiterModel().showLoading();
   }
 
-  /// hidden loading
-  /// The [tag] To hide a specific tag
+  /// hidden loading.
+  ///
+  /// The [tag] To hide a specific tag.
   void hiddenLoading(String tag) {
     _model = WaiterModel().hiddenLoading(tag);
   }
 
-  /// show error
-  /// The [tag] set a specific tag
+  /// show error.
+  ///
+  /// The [tag] set a specific tag.
   void showError(String tag) {
     _model = WaiterModel().showError(tag);
   }
 
-  /// show error with toast
-  /// The [tag] set a specific tag
-  /// The [toast] text after show error
+  /// show error with toast.
+  ///
+  /// The [tag] set a specific tag.
+  /// The [toast] text after show error.
   void showErrorToast(String tag, String toast) {
     _model = WaiterModel().showErrorToast(tag, toast);
   }
 
-  /// show error without OK Button
-  /// The [tag] set a specific tag
+  /// show error without OK Button.
+  ///
+  /// The [tag] set a specific tag.
   void showErrorWithOutOK(String tag) {
     _model = WaiterModel().showErrorWithOutOK(tag);
   }
 
-  /// show error without OK Button and with toast
-  /// The [tag] set a specific tag
-  /// The [toast] text after show error without OK Button
+  /// show error without OK Button and with toast.
+  ///
+  /// The [tag] set a specific tag.
+  /// The [toast] text after show error without OK Button.
   void showErrorToastWithOutOK(String tag, String toast) {
     _model = WaiterModel().showErrorToastWithOutOK(tag, toast);
   }
 
-  /// hidden error
+  /// hidden error.
   void hiddenError() {
     _model = WaiterModel().hiddenError();
   }
 
-  /// show progress
-  /// The [tag] set a specific tag
+  /// show progress.
+  ///
+  /// The [tag] set a specific tag.
   void showProgress(String tag) {
     _model = WaiterModel().showProgress(tag);
   }
 
-  /// hidden progress
-  /// The [tag] set a specific tag
+  /// hidden progress.
+  ///
+  /// The [tag] set a specific tag.
   void hiddenProgress(String tag) {
     _model = WaiterModel().hiddenLoading(tag);
   }
