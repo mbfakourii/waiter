@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:lottie/lottie.dart';
-import 'package:responsive_sizer/responsive_sizer.dart';
+// import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../waiter.dart';
 
@@ -220,9 +221,9 @@ class _WaiterState extends State<Waiter> {
         this.isErrorWithoutOK = isErrorWithoutOK;
 
         if (isErrorWithoutOK) {
-          widthTryError = 71.w;
+          widthTryError = 190.w;
         } else {
-          widthTryError = 34.w;
+          widthTryError = 90.w;
         }
 
         this.isProgress = isProgress;
@@ -250,307 +251,391 @@ class _WaiterState extends State<Waiter> {
         ? const BorderRadius.all(Radius.circular(12.0))
         : const BorderRadius.all(Radius.circular(4.0));
 
-    return ResponsiveSizer(builder: (context, orientation, screenType) {
-      return Material(
-        child: Stack(
-          fit: StackFit.loose,
-          alignment: AlignmentDirectional.center,
-          children: [
-            widget.child,
-            Visibility(
-              maintainSize: true,
-              maintainAnimation: true,
-              maintainState: true,
-              visible: isLoading,
-              child: Container(
-                  height: widget.mainKey == null
-                      ? null
-                      : sizeHeight == 0
-                          ? 0
-                          : sizeHeight,
-                  // this color for transparent for back
-                  decoration: BoxDecoration(color: backgroundColor),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      Center(
-                          child: SizedBox(
-                              child: Lottie.asset(
-                        'packages/waiter/assets/loading.json',
-                        animate: animationLoading,
-                        delegates: LottieDelegates(
-                          values: [
-                            ValueDelegate.colorFilter(
-                              const ['icon', '**'],
-                              value: ColorFilter.mode(
-                                  Theme.of(context).colorScheme.primary,
-                                  BlendMode.src),
-                            ),
-                            ValueDelegate.colorFilter(
-                              const ['icon 2', '**'],
-                              value: ColorFilter.mode(
-                                  Theme.of(context).colorScheme.primary,
-                                  BlendMode.src),
-                            ),
-                          ],
-                        ),
-                      )))
-                    ],
-                  )),
-            ),
-            Visibility(
-              maintainSize: true,
-              maintainAnimation: true,
-              maintainState: true,
-              visible: isError,
-              child: Container(
-                  height: widget.mainKey == null
-                      ? null
-                      : sizeHeight == 0
-                          ? 0
-                          : sizeHeight,
-                  decoration: BoxDecoration(color: backgroundColor),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      Center(
-                          child: SizedBox(
-                        width: 80.w,
-                        child: Card(
-                          child: Padding(
-                            padding: const EdgeInsets.all(6.0),
-                            child: Column(
-                              children: [
-                                Lottie.asset(
-                                  'packages/waiter/assets/error.json',
-                                  repeat: false,
-                                  animate: animationError,
-                                  delegates: LottieDelegates(
-                                    values: [
-                                      ValueDelegate.colorFilter(
-                                        const ['Rectangle 6 Copy', '**'],
-                                        value: ColorFilter.mode(
-                                            Theme.of(context)
-                                                .colorScheme
-                                                .primary,
-                                            BlendMode.src),
-                                      ),
-                                      ValueDelegate.colorFilter(
-                                        const ['Combined Shape', '**'],
-                                        value: ColorFilter.mode(
-                                            Theme.of(context)
-                                                .colorScheme
-                                                .background,
-                                            BlendMode.src),
-                                      ),
-                                    ],
-                                  ),
+    return ScreenUtilInit(
+        designSize: const Size(360, 690),
+        minTextAdapt: true,
+        splitScreenMode: true,
+        builder: (context, child) {
+          return Material(
+            child: Stack(
+              fit: StackFit.loose,
+              alignment: AlignmentDirectional.center,
+              children: [
+                widget.child,
+                Visibility(
+                  maintainSize: true,
+                  maintainAnimation: true,
+                  maintainState: true,
+                  visible: isLoading,
+                  child: Container(
+                      height: widget.mainKey == null
+                          ? null
+                          : sizeHeight == 0
+                              ? 0
+                              : sizeHeight,
+                      // this color for transparent for back
+                      decoration: BoxDecoration(color: backgroundColor),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Center(
+                              child: SizedBox(
+                                  child: Lottie.asset(
+                            'packages/waiter/assets/loading.json',
+                            animate: animationLoading,
+                            delegates: LottieDelegates(
+                              values: [
+                                ValueDelegate.colorFilter(
+                                  const ['icon', '**'],
+                                  value: ColorFilter.mode(
+                                      Theme.of(context).colorScheme.primary,
+                                      BlendMode.src),
                                 ),
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  children: <Widget>[
-                                    Visibility(
-                                      visible: !isErrorWithoutOK,
-                                      child: Flexible(
-                                        flex: 2,
-                                        child: Container(
-                                            color: Colors.transparent,
-                                            width: 34.w,
-                                            child: TextButton(
-                                              child: Text(
-                                                globalLanguage.confirm,
-                                                style: TextStyle(
-                                                    fontWeight: FontWeight.bold,
-                                                    fontSize: 17.sp),
-                                              ),
-                                              onPressed: () {
-                                                widget.callback.hiddenLoading(
-                                                    widget.callback.model
-                                                        .callBackTag);
-                                              },
-                                            )),
-                                      ),
-                                    ),
-                                    Visibility(
-                                      visible: !isErrorWithoutOK,
-                                      child: SizedBox(
-                                        width: 3.w,
-                                      ),
-                                    ),
-                                    Flexible(
-                                      flex: 2,
-                                      child: Container(
-                                          color: Colors.transparent,
-                                          width: widthTryError,
-                                          child: TextButton(
-                                            child: Text(globalLanguage.tryAgain,
-                                                style: TextStyle(
-                                                    fontWeight: FontWeight.bold,
-                                                    fontSize: 17.sp)),
-                                            onPressed: () {
-                                              if (tags.isEmpty) {
-                                                throw "tags is empty!";
-                                              }
-
-                                              for (var tag
-                                                  in Set<String>.from(tags)
-                                                      .toList()) {
-                                                widget.onTry!.call(tag);
-                                              }
-
-                                              tags.clear();
-
-                                              if (widget.callback.model.type ==
-                                                  "progress") {
-                                                widget.callback.showProgress(
-                                                    widget.callback.model
-                                                        .callBackTag);
-                                              } else {
-                                                widget.callback.showLoading();
-                                              }
-                                            },
-                                          )),
-                                    ),
-                                  ],
-                                )
+                                ValueDelegate.colorFilter(
+                                  const ['icon 2', '**'],
+                                  value: ColorFilter.mode(
+                                      Theme.of(context).colorScheme.primary,
+                                      BlendMode.src),
+                                ),
                               ],
                             ),
-                          ),
-                        ),
+                          )))
+                        ],
                       )),
-                    ],
-                  )),
-            ),
-            Visibility(
-              maintainSize: true,
-              maintainAnimation: true,
-              maintainState: true,
-              visible: isProgress,
-              child: InkWell(
-                splashColor: Colors.transparent,
-                highlightColor: Colors.transparent,
-                onTap: widget.onCloseProgress,
-                child: Container(
-                    height: widget.mainKey == null
-                        ? null
-                        : sizeHeight == 0
-                            ? 0
-                            : sizeHeight,
-                    decoration: BoxDecoration(color: backgroundColor),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        Center(
-                            child: SizedBox(
-                                width: 80.w,
-                                child: Card(
-                                    child: Padding(
-                                  padding: const EdgeInsets.all(5.0),
-                                  child: Column(
-                                    children: [
-                                      Container(
-                                        padding: EdgeInsets.only(
-                                            bottom: 1.h, top: 1.h),
-                                        child: Text(globalLanguage.pleaseWait,
-                                            style: TextStyle(
-                                                fontWeight: FontWeight.bold,
-                                                fontSize: 17.sp)),
+                ),
+                Visibility(
+                  maintainSize: true,
+                  maintainAnimation: true,
+                  maintainState: true,
+                  visible: isError,
+                  child: Container(
+                      height: widget.mainKey == null
+                          ? null
+                          : sizeHeight == 0
+                              ? 0
+                              : sizeHeight,
+                      decoration: BoxDecoration(color: backgroundColor),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Center(
+                              child: SizedBox(
+                            width: 280.w,
+                            child: Card(
+                              child: Padding(
+                                padding: const EdgeInsets.all(6.0),
+                                child: Column(
+                                  children: [
+                                    Lottie.asset(
+                                      'packages/waiter/assets/error.json',
+                                      repeat: false,
+                                      animate: animationError,
+                                      delegates: LottieDelegates(
+                                        values: [
+                                          ValueDelegate.colorFilter(
+                                            const ['Rectangle 6 Copy', '**'],
+                                            value: ColorFilter.mode(
+                                                Theme.of(context)
+                                                    .colorScheme
+                                                    .primary,
+                                                BlendMode.src),
+                                          ),
+                                          ValueDelegate.colorFilter(
+                                            const ['Combined Shape', '**'],
+                                            value: ColorFilter.mode(
+                                                Theme.of(context)
+                                                    .colorScheme
+                                                    .background,
+                                                BlendMode.src),
+                                          ),
+                                        ],
                                       ),
-                                      Container(
-                                        padding: const EdgeInsets.all(10),
-                                        child: Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceBetween,
-                                          children: <Widget>[
-                                            Padding(
-                                              padding:
-                                                  const EdgeInsetsDirectional
-                                                      .only(end: 9),
-                                              child: Text("%$textPercent",
-                                                  style: TextStyle(
-                                                      fontWeight:
-                                                          FontWeight.bold,
-                                                      fontSize: 17.sp)),
-                                            ),
-                                            Expanded(
-                                              child: SizedBox(
-                                                  width: double.infinity,
-                                                  height: 2.h,
-                                                  child: ClipRRect(
-                                                    borderRadius: cardRadios,
-                                                    child:
-                                                        LinearProgressIndicator(
-                                                      value: showPercent / 100,
-                                                      backgroundColor:
-                                                          Theme.of(context)
-                                                              .colorScheme
-                                                              .onSecondary,
-                                                      valueColor:
-                                                          AlwaysStoppedAnimation<
-                                                                  Color>(
+                                    ),
+                                    Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.center,
+                                      children: <Widget>[
+                                        Visibility(
+                                          visible: !isErrorWithoutOK,
+                                          child: Flexible(
+                                            flex: 2,
+                                            child: Container(
+                                                color: Colors.transparent,
+                                                width: 90.w,
+                                                child: TextButton(
+                                                  child: Text(
+                                                    globalLanguage.confirm,
+                                                    style: Theme.of(context)
+                                                        .textTheme
+                                                        .titleMedium
+                                                        ?.copyWith(
+                                                            color: Theme.of(
+                                                                    context)
+                                                                .colorScheme
+                                                                .primary,
+                                                            fontWeight:
+                                                                FontWeight
+                                                                    .bold),
+                                                  ),
+                                                  onPressed: () {
+                                                    widget.callback
+                                                        .hiddenLoading(widget
+                                                            .callback
+                                                            .model
+                                                            .callBackTag);
+                                                  },
+                                                )),
+                                          ),
+                                        ),
+                                        Visibility(
+                                          visible: !isErrorWithoutOK,
+                                          child: SizedBox(
+                                            width: 30.w,
+                                          ),
+                                        ),
+                                        Flexible(
+                                          flex: 2,
+                                          child: Container(
+                                              color: Colors.transparent,
+                                              width: widthTryError,
+                                              child: TextButton(
+                                                child: Text(
+                                                  globalLanguage.tryAgain,
+                                                  style: Theme.of(context)
+                                                      .textTheme
+                                                      .titleMedium
+                                                      ?.copyWith(
+                                                          color:
                                                               Theme.of(context)
                                                                   .colorScheme
-                                                                  .primary),
-                                                    ),
-                                                  )),
-                                            ),
-                                            if (textTotal != "0" &&
-                                                textTotal != "1")
-                                              Padding(
-                                                padding:
-                                                    const EdgeInsetsDirectional
-                                                        .only(start: 9),
-                                                child: Row(
-                                                  children: [
-                                                    Text("$textCurrent/",
-                                                        style: TextStyle(
-                                                            fontWeight:
-                                                                FontWeight.bold,
-                                                            fontSize: 17.sp)),
-                                                    Text(textTotal,
-                                                        style: TextStyle(
-                                                            fontWeight:
-                                                                FontWeight.bold,
-                                                            fontSize: 17.sp)),
-                                                  ],
+                                                                  .primary,
+                                                          fontWeight:
+                                                              FontWeight.bold),
                                                 ),
-                                              ),
-                                          ],
+                                                onPressed: () {
+                                                  if (tags.isEmpty) {
+                                                    throw "tags is empty!";
+                                                  }
+
+                                                  for (var tag
+                                                      in Set<String>.from(tags)
+                                                          .toList()) {
+                                                    widget.onTry!.call(tag);
+                                                  }
+
+                                                  tags.clear();
+
+                                                  if (widget.callback.model
+                                                          .type ==
+                                                      "progress") {
+                                                    widget.callback
+                                                        .showProgress(widget
+                                                            .callback
+                                                            .model
+                                                            .callBackTag);
+                                                  } else {
+                                                    widget.callback
+                                                        .showLoading();
+                                                  }
+                                                },
+                                              )),
                                         ),
+                                      ],
+                                    )
+                                  ],
+                                ),
+                              ),
+                            ),
+                          )),
+                        ],
+                      )),
+                ),
+                Visibility(
+                  maintainSize: true,
+                  maintainAnimation: true,
+                  maintainState: true,
+                  visible: isProgress,
+                  child: InkWell(
+                    splashColor: Colors.transparent,
+                    highlightColor: Colors.transparent,
+                    onTap: widget.onCloseProgress,
+                    child: Container(
+                        height: widget.mainKey == null
+                            ? null
+                            : sizeHeight == 0
+                                ? 0
+                                : sizeHeight,
+                        decoration: BoxDecoration(color: backgroundColor),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            Center(
+                                child: SizedBox(
+                                    width: 280.w,
+                                    child: Card(
+                                        child: Padding(
+                                      padding: const EdgeInsets.all(5.0),
+                                      child: Column(
+                                        children: [
+                                          Container(
+                                            padding: EdgeInsets.only(
+                                                bottom: 5.h, top: 5.h),
+                                            child: Text(
+                                              globalLanguage.pleaseWait,
+                                              style: Theme.of(context)
+                                                  .textTheme
+                                                  .titleMedium
+                                                  ?.copyWith(
+                                                      color: Theme.of(context)
+                                                          .colorScheme
+                                                          .secondary,
+                                                      fontWeight:
+                                                          FontWeight.bold),
+                                            ),
+                                          ),
+                                          Container(
+                                            padding: const EdgeInsets.only(
+                                                left: 10, right: 10, top: 10),
+                                            child: Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment
+                                                      .spaceBetween,
+                                              children: <Widget>[
+                                                Padding(
+                                                  padding:
+                                                      const EdgeInsetsDirectional
+                                                          .only(end: 9),
+                                                  child: Text(
+                                                    "%$textPercent",
+                                                    style: Theme.of(context)
+                                                        .textTheme
+                                                        .titleMedium
+                                                        ?.copyWith(
+                                                            color: Theme.of(
+                                                                    context)
+                                                                .colorScheme
+                                                                .secondary,
+                                                            fontWeight:
+                                                                FontWeight
+                                                                    .bold),
+                                                  ),
+                                                ),
+                                                Expanded(
+                                                  child: Padding(
+                                                    padding:
+                                                        const EdgeInsets.only(
+                                                            bottom: 5),
+                                                    child: SizedBox(
+                                                        width: double.infinity,
+                                                        child: ClipRRect(
+                                                          borderRadius:
+                                                              cardRadios,
+                                                          child:
+                                                              LinearProgressIndicator(
+                                                            value: showPercent /
+                                                                100,
+                                                            backgroundColor:
+                                                                Theme.of(
+                                                                        context)
+                                                                    .colorScheme
+                                                                    .onSecondary,
+                                                            valueColor:
+                                                                AlwaysStoppedAnimation<
+                                                                    Color>(Theme.of(
+                                                                        context)
+                                                                    .colorScheme
+                                                                    .primary),
+                                                          ),
+                                                        )),
+                                                  ),
+                                                ),
+                                                if (textTotal != "0" &&
+                                                    textTotal != "1")
+                                                  Padding(
+                                                    padding:
+                                                        const EdgeInsetsDirectional
+                                                            .only(start: 9),
+                                                    child: Row(
+                                                      children: [
+                                                        Text(
+                                                          "$textCurrent/",
+                                                          style: Theme.of(
+                                                                  context)
+                                                              .textTheme
+                                                              .titleMedium
+                                                              ?.copyWith(
+                                                                  color: Theme.of(
+                                                                          context)
+                                                                      .colorScheme
+                                                                      .secondary,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .bold),
+                                                        ),
+                                                        Text(
+                                                          textTotal,
+                                                          style: Theme.of(
+                                                                  context)
+                                                              .textTheme
+                                                              .titleMedium
+                                                              ?.copyWith(
+                                                                  color: Theme.of(
+                                                                          context)
+                                                                      .colorScheme
+                                                                      .secondary,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .bold),
+                                                        ),
+                                                      ],
+                                                    ),
+                                                  ),
+                                              ],
+                                            ),
+                                          ),
+                                          Container(
+                                              color: Colors.transparent,
+                                              width: widthTryError,
+                                              child: TextButton(
+                                                child: Text(
+                                                  globalLanguage.cancel,
+                                                  style: Theme.of(context)
+                                                      .textTheme
+                                                      .titleMedium
+                                                      ?.copyWith(
+                                                          color:
+                                                              Theme.of(context)
+                                                                  .colorScheme
+                                                                  .primary,
+                                                          fontWeight:
+                                                              FontWeight.bold),
+                                                ),
+                                                onPressed: () {
+                                                  widget.onCancelProgress?.call(
+                                                      widget.callback.model
+                                                          .callBackTag);
+                                                  setWidgetVisibility(
+                                                      isLoading: false,
+                                                      isError: false,
+                                                      isProgress: false,
+                                                      isErrorWithoutOK: false);
+                                                },
+                                              )),
+                                        ],
                                       ),
-                                      Container(
-                                          color: Colors.transparent,
-                                          width: widthTryError,
-                                          child: TextButton(
-                                            child: Text(globalLanguage.cancel,
-                                                style: TextStyle(
-                                                    fontWeight: FontWeight.bold,
-                                                    fontSize: 17.sp)),
-                                            onPressed: () {
-                                              widget.onCancelProgress?.call(
-                                                  widget.callback.model
-                                                      .callBackTag);
-                                              setWidgetVisibility(
-                                                  isLoading: false,
-                                                  isError: false,
-                                                  isProgress: false,
-                                                  isErrorWithoutOK: false);
-                                            },
-                                          )),
-                                    ],
-                                  ),
-                                ))))
-                      ],
-                    )),
-              ),
+                                    ))))
+                          ],
+                        )),
+                  ),
+                ),
+              ],
             ),
-          ],
-        ),
-      );
-    });
+          );
+        });
   }
 }
