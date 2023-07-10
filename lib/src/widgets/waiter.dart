@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:lottie/lottie.dart';
-// import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../waiter.dart';
 
@@ -250,12 +249,11 @@ class _WaiterState extends State<Waiter> {
     cardRadios = Theme.of(context).useMaterial3
         ? const BorderRadius.all(Radius.circular(12.0))
         : const BorderRadius.all(Radius.circular(4.0));
+    ScreenUtil.init(context);
 
-    return ScreenUtilInit(
-        designSize: const Size(360, 690),
-        minTextAdapt: true,
-        splitScreenMode: true,
-        builder: (context, child) {
+    return FutureBuilder(
+        future: Future.wait([ScreenUtil.ensureScreenSize()]),
+        builder: (context, snapshot) {
           return Material(
             child: Stack(
               fit: StackFit.loose,
