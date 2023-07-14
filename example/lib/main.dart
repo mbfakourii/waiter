@@ -68,7 +68,7 @@ class _WaiterTestState extends State<WaiterTest> {
         _showToast("onCancelProgress");
         timer.cancel();
       },
-      onCloseProgress: () {
+      onDismissProgress: () {
         timer.cancel();
       },
       child: Scaffold(

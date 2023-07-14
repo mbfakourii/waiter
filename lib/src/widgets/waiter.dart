@@ -17,7 +17,7 @@ class Waiter extends StatefulWidget {
   final ValueSetter<String>? onTry;
   final ValueSetter<String>? onCancelProgress;
   final bool? firstLoadShowLoading;
-  final GestureTapCallback? onCloseProgress;
+  final GestureTapCallback? onDismissProgress;
   final GlobalKey? mainKey;
   final Language? language;
 
@@ -33,7 +33,7 @@ class Waiter extends StatefulWidget {
       this.progress,
       this.totalNumberProgress,
       this.currentNumberProgress,
-      this.onCloseProgress});
+      this.onDismissProgress});
 
   @override
   State<Waiter> createState() => _WaiterState();
@@ -428,14 +428,7 @@ class _WaiterState extends State<Waiter> {
 
                                             tags.clear();
 
-                                            if (widget.callback.model.type ==
-                                                "progress") {
-                                              widget.callback.showProgress(
-                                                  widget.callback.model
-                                                      .callBackTag);
-                                            } else {
-                                              widget.callback.showLoading();
-                                            }
+                                            widget.callback.showLoading();
                                           },
                                         )),
                                   ),
@@ -457,7 +450,7 @@ class _WaiterState extends State<Waiter> {
             child: InkWell(
               splashColor: Colors.transparent,
               highlightColor: Colors.transparent,
-              onTap: widget.onCloseProgress,
+              onTap: widget.onDismissProgress,
               child: Container(
                   height: widget.mainKey == null
                       ? null

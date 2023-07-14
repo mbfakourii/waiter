@@ -20,6 +20,9 @@ class WaiterController extends ValueNotifier<WaiterValue> {
   /// waiter is visible.
   bool get isVisible => value.model.isVisible;
 
+  /// waiter is progressing.
+  bool get isProgress => value.model.type == "progress";
+
   /// get type waiter.
   ///
   /// contain `loading`,`hiddenLoading`,`errorWithOutOK`,`error`,`progress`.

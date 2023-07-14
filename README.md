@@ -69,8 +69,8 @@ Waiter(
   onCancelProgress: (value) {
     print("onCancelProgress");
   },
-  onCloseProgress: () {
-    print("onCloseProgress");
+  onDismissProgress: () {
+    print("onDismissProgress");
   },
   child: Scaffold(
     ...
