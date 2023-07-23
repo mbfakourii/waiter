@@ -222,7 +222,7 @@ class _WaiterState extends State<Waiter> {
         if (isErrorWithoutOK) {
           widthTryError = 190.w;
         } else {
-          widthTryError = 90.w;
+          widthTryError = 100.w;
         }
 
         this.isProgress = isProgress;
