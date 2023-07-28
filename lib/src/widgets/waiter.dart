@@ -12,7 +12,7 @@ class Waiter extends StatefulWidget {
   final ValueNotifier<int>? totalNumberProgress;
   final ValueNotifier<int>? currentNumberProgress;
 
-  final WaiterController callback;
+  final WaiterController controller;
   final Widget child;
   final ValueSetter<String>? onTry;
   final ValueSetter<String>? onCancelProgress;
@@ -25,7 +25,7 @@ class Waiter extends StatefulWidget {
       {super.key,
       this.mainKey,
       required this.child,
-      required this.callback,
+      required this.controller,
       this.onTry,
       this.language,
       this.onCancelProgress,
@@ -130,9 +130,9 @@ class _WaiterState extends State<Waiter> {
       });
     }
 
-    widget.callback.addListener(() {
-      if (widget.callback.model.isVisible) {
-        switch (widget.callback.model.type) {
+    widget.controller.addListener(() {
+      if (widget.controller.model.isVisible) {
+        switch (widget.controller.model.type) {
           case "loading":
             {
               setWidgetVisibility(
@@ -144,15 +144,15 @@ class _WaiterState extends State<Waiter> {
             }
           case "error":
             {
-              currentSelectedTag = widget.callback.model.callBackTag;
+              currentSelectedTag = widget.controller.model.callBackTag;
               setWidgetVisibility(
                   isLoading: false,
                   isError: true,
                   isProgress: false,
                   isErrorWithoutOK: false);
-              if (widget.callback.model.toastText != "") {
+              if (widget.controller.model.toastText != "") {
                 Fluttertoast.showToast(
-                    msg: widget.callback.model.toastText,
+                    msg: widget.controller.model.toastText,
                     toastLength: Toast.LENGTH_SHORT);
               }
               break;
@@ -179,7 +179,7 @@ class _WaiterState extends State<Waiter> {
             }
         }
       } else {
-        if (currentSelectedTag == widget.callback.model.callBackTag) {
+        if (currentSelectedTag == widget.controller.model.callBackTag) {
           currentSelectedTag = "";
           try {
             setWidgetVisibility(
@@ -189,13 +189,11 @@ class _WaiterState extends State<Waiter> {
                 isErrorWithoutOK: false);
           } catch (_) {}
         } else {
-          if (widget.callback.model.type == "hiddenLoading") {
-            setWidgetVisibility(
-                isLoading: false,
-                isError: false,
-                isProgress: false,
-                isErrorWithoutOK: false);
-          }
+          setWidgetVisibility(
+              isLoading: false,
+              isError: false,
+              isProgress: false,
+              isErrorWithoutOK: false);
         }
       }
     });
@@ -207,7 +205,7 @@ class _WaiterState extends State<Waiter> {
       bool isProgress = false,
       bool isErrorWithoutOK = false}) {
     if (isError || isErrorWithoutOK) {
-      tags.add(widget.callback.model.callBackTag);
+      tags.add(widget.controller.model.callBackTag);
     }
 
     if (mounted) {
@@ -384,8 +382,8 @@ class _WaiterState extends State<Waiter> {
                                                           FontWeight.bold),
                                             ),
                                             onPressed: () {
-                                              widget.callback.hiddenLoading(
-                                                  widget.callback.model
+                                              widget.controller.hiddenLoading(
+                                                  widget.controller.model
                                                       .callBackTag);
                                             },
                                           )),
@@ -428,7 +426,7 @@ class _WaiterState extends State<Waiter> {
 
                                             tags.clear();
 
-                                            widget.callback.showLoading();
+                                            widget.controller.showLoading();
                                           },
                                         )),
                                   ),
@@ -593,7 +591,7 @@ class _WaiterState extends State<Waiter> {
                                           ),
                                           onPressed: () {
                                             widget.onCancelProgress?.call(widget
-                                                .callback.model.callBackTag);
+                                                .controller.model.callBackTag);
                                             setWidgetVisibility(
                                                 isLoading: false,
                                                 isError: false,

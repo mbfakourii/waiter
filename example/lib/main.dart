@@ -48,7 +48,7 @@ class _WaiterTestState extends State<WaiterTest> {
   @override
   Widget build(BuildContext context) {
     return Waiter(
-      callback: waiterController,
+      controller: waiterController,
       onTry: (value) {
         switch (value) {
           case "errorTag1":

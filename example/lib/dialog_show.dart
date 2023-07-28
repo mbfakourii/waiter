@@ -33,7 +33,7 @@ class _DialogShowState extends State<DialogShow> {
             child: Waiter(
               firstLoadShowLoading: true,
               mainKey: mainKey,
-              callback: waiterController,
+              controller: waiterController,
               child: Padding(
                 padding: const EdgeInsets.only(left: 10, right: 10),
                 child: Column(

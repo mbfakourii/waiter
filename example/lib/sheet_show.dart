@@ -28,7 +28,7 @@ class _SheetShowState extends State<SheetShow> {
       child: Waiter(
         firstLoadShowLoading: true,
         mainKey: mainKey,
-        callback: waiterController,
+        controller: waiterController,
         child: const Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisSize: MainAxisSize.min,
