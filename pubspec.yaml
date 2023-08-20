@@ -14,7 +14,7 @@ dependencies:
     sdk: flutter
 
   # Lottie
-  lottie: ^2.4.0
+  lottie: ^2.6.0
 
   # Toast
   fluttertoast: ^8.2.2
