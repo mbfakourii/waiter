@@ -15,7 +15,7 @@ class _SheetShowState extends State<SheetShow> {
   @override
   void initState() {
     Future.delayed(const Duration(milliseconds: 2000), () {
-      waiterController.hiddenLoading("hiddenLoading");
+      waiterController.hiddenLoading('hiddenLoading');
     });
 
     super.initState();

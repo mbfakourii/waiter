@@ -6,7 +6,7 @@ class WaiterController extends ValueNotifier<WaiterValue> {
   WaiterController() : super(WaiterValue(model: WaiterModel()));
 
   /// handel onTry.
-  ValueNotifier<String> onTry = ValueNotifier<String>("");
+  ValueNotifier<String> onTry = ValueNotifier<String>('');
 
   /// main waiter model.
   WaiterModel get model => value.model;
@@ -21,7 +21,7 @@ class WaiterController extends ValueNotifier<WaiterValue> {
   bool get isVisible => value.model.isVisible;
 
   /// waiter is progressing.
-  bool get isProgress => value.model.type == "progress";
+  bool get isProgress => value.model.type == 'progress';
 
   /// get type waiter.
   ///

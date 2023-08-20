@@ -1,27 +1,27 @@
 class WaiterModel {
   bool isVisible = false;
 
-  String type = "";
-  String callBackTag = "";
-  String toastText = "";
+  String type = '';
+  String callBackTag = '';
+  String toastText = '';
 
   /// show loading.
   WaiterModel showLoading() {
-    type = "loading";
+    type = 'loading';
     isVisible = true;
     return this;
   }
 
   /// hidden loading.
   WaiterModel hiddenLoading(String tag) {
-    type = "hiddenLoading";
+    type = 'hiddenLoading';
     isVisible = false;
     return this;
   }
 
   /// error without OK.
   WaiterModel showErrorWithOutOK(String tag) {
-    type = "errorWithOutOK";
+    type = 'errorWithOutOK';
     isVisible = true;
     callBackTag = tag;
     return this;
@@ -29,7 +29,7 @@ class WaiterModel {
 
   /// show error.
   WaiterModel showError(String tag) {
-    type = "error";
+    type = 'error';
     isVisible = true;
     callBackTag = tag;
     return this;
@@ -37,7 +37,7 @@ class WaiterModel {
 
   /// show error with toast.
   WaiterModel showErrorToast(String tag, String toast) {
-    type = "error";
+    type = 'error';
     isVisible = true;
     callBackTag = tag;
     toastText = toast;
@@ -46,7 +46,7 @@ class WaiterModel {
 
   /// show error without ok button and with toast.
   WaiterModel showErrorToastWithOutOK(String tag, String toast) {
-    type = "errorWithOutOK";
+    type = 'errorWithOutOK';
     isVisible = true;
     callBackTag = tag;
     toastText = toast;
@@ -61,7 +61,7 @@ class WaiterModel {
 
   /// show progress.
   WaiterModel showProgress(String tag) {
-    type = "progress";
+    type = 'progress';
     isVisible = true;
     callBackTag = tag;
     return this;

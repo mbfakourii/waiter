@@ -1,9 +1,9 @@
 /// language texts.
 class Language {
-  String confirm = "Confirm";
-  String tryAgain = "Try Again";
-  String pleaseWait = "Please wait";
-  String cancel = "Cancel";
+  String confirm = 'Confirm';
+  String tryAgain = 'Try Again';
+  String pleaseWait = 'Please wait';
+  String cancel = 'Cancel';
 
   Language();
 

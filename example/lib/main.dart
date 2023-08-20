@@ -51,11 +51,11 @@ class _WaiterTestState extends State<WaiterTest> {
       controller: waiterController,
       onTry: (value) {
         switch (value) {
-          case "errorTag1":
-            _showToast("onTry errorTag1");
+          case 'errorTag1':
+            _showToast('onTry errorTag1');
 
             Future.delayed(const Duration(milliseconds: 2000), () {
-              waiterController.hiddenLoading("errorTag1");
+              waiterController.hiddenLoading('errorTag1');
             });
             break;
         }
@@ -65,7 +65,7 @@ class _WaiterTestState extends State<WaiterTest> {
       currentNumberProgress: currentNumberProgress,
       totalNumberProgress: totalNumberProgress,
       onCancelProgress: (value) {
-        _showToast("onCancelProgress");
+        _showToast('onCancelProgress');
         timer.cancel();
       },
       onDismissProgress: () {
@@ -76,21 +76,21 @@ class _WaiterTestState extends State<WaiterTest> {
         body: Center(
           child: Column(
             children: [
-              _addButton("Show loading", () {
+              _addButton('Show loading', () {
                 waiterController.showLoading();
 
                 Future.delayed(const Duration(milliseconds: 2000), () {
-                  waiterController.hiddenLoading("tag");
+                  waiterController.hiddenLoading('tag');
                 });
               }),
-              _addButton("Show error", () {
-                waiterController.showError("errorTag1");
+              _addButton('Show error', () {
+                waiterController.showError('errorTag1');
               }),
-              _addButton("Show progress", () async {
+              _addButton('Show progress', () async {
                 totalNumberProgress.value = 1;
                 currentNumberProgress.value = 1;
 
-                waiterController.showProgress("progressTag1");
+                waiterController.showProgress('progressTag1');
 
                 int i = 0;
                 timer = Timer.periodic(
@@ -102,16 +102,16 @@ class _WaiterTestState extends State<WaiterTest> {
                       timer.cancel();
 
                       Future.delayed(const Duration(milliseconds: 1000), () {
-                        waiterController.hiddenProgress("progressTag1");
+                        waiterController.hiddenProgress('progressTag1');
                       });
                     }
                   },
                 );
               }),
-              _addButton("Open sheet", () {
+              _addButton('Open sheet', () {
                 _openSheet(context);
               }),
-              _addButton("Open dialog", () {
+              _addButton('Open dialog', () {
                 _openDialog(context);
               }),
             ],
@@ -121,7 +121,7 @@ class _WaiterTestState extends State<WaiterTest> {
     );
   }
 
-  _addButton(String name, void Function() callback) {
+  Widget _addButton(String name, void Function() callback) {
     return Padding(
       padding: const EdgeInsets.only(top: 20),
       child: ElevatedButton(

@@ -47,10 +47,10 @@ class _WaiterState extends State<Waiter> {
   bool animationError = false;
   bool animationLoading = false;
 
-  String textPercent = "0";
-  String textTotal = "0";
-  String textCurrent = "0";
-  String currentSelectedTag = "";
+  String textPercent = '0';
+  String textTotal = '0';
+  String textCurrent = '0';
+  String currentSelectedTag = '';
 
   double sizeHeight = 0;
   double widthTryError = 0;
@@ -64,7 +64,7 @@ class _WaiterState extends State<Waiter> {
   void dispose() {
     if (widget.onCancelProgress != null) {
       try {
-        widget.onCancelProgress!.call("");
+        widget.onCancelProgress!.call('');
       } catch (_) {}
     }
     super.dispose();
@@ -133,7 +133,7 @@ class _WaiterState extends State<Waiter> {
     widget.controller.addListener(() {
       if (widget.controller.model.isVisible) {
         switch (widget.controller.model.type) {
-          case "loading":
+          case 'loading':
             {
               setWidgetVisibility(
                   isLoading: true,
@@ -142,7 +142,7 @@ class _WaiterState extends State<Waiter> {
                   isErrorWithoutOK: false);
               break;
             }
-          case "error":
+          case 'error':
             {
               currentSelectedTag = widget.controller.model.callBackTag;
               setWidgetVisibility(
@@ -150,7 +150,7 @@ class _WaiterState extends State<Waiter> {
                   isError: true,
                   isProgress: false,
                   isErrorWithoutOK: false);
-              if (widget.controller.model.toastText != "") {
+              if (widget.controller.model.toastText != '') {
                 Fluttertoast.showToast(
                     msg: widget.controller.model.toastText,
                     toastLength: Toast.LENGTH_SHORT);
@@ -158,7 +158,7 @@ class _WaiterState extends State<Waiter> {
               break;
             }
 
-          case "errorWithOutOK":
+          case 'errorWithOutOK':
             {
               setWidgetVisibility(
                   isLoading: false,
@@ -168,7 +168,7 @@ class _WaiterState extends State<Waiter> {
               break;
             }
 
-          case "progress":
+          case 'progress':
             {
               setWidgetVisibility(
                   isLoading: false,
@@ -180,7 +180,7 @@ class _WaiterState extends State<Waiter> {
         }
       } else {
         if (currentSelectedTag == widget.controller.model.callBackTag) {
-          currentSelectedTag = "";
+          currentSelectedTag = '';
           try {
             setWidgetVisibility(
                 isLoading: false,
@@ -261,7 +261,7 @@ class _WaiterState extends State<Waiter> {
     }
   }
 
-  _getMainWidget() {
+  Widget _getMainWidget() {
     return Material(
       child: Stack(
         fit: StackFit.loose,
@@ -415,7 +415,7 @@ class _WaiterState extends State<Waiter> {
                                           ),
                                           onPressed: () {
                                             if (tags.isEmpty) {
-                                              throw "tags is empty!";
+                                              throw 'tags is empty!';
                                             }
 
                                             for (var tag
@@ -494,7 +494,7 @@ class _WaiterState extends State<Waiter> {
                                             padding: const EdgeInsetsDirectional
                                                 .only(end: 9),
                                             child: Text(
-                                              "%$textPercent",
+                                              '%$textPercent',
                                               style: Theme.of(context)
                                                   .textTheme
                                                   .titleMedium
@@ -531,8 +531,8 @@ class _WaiterState extends State<Waiter> {
                                                   )),
                                             ),
                                           ),
-                                          if (textTotal != "0" &&
-                                              textTotal != "1")
+                                          if (textTotal != '0' &&
+                                              textTotal != '1')
                                             Padding(
                                               padding:
                                                   const EdgeInsetsDirectional
@@ -540,7 +540,7 @@ class _WaiterState extends State<Waiter> {
                                               child: Row(
                                                 children: [
                                                   Text(
-                                                    "$textCurrent/",
+                                                    '$textCurrent/',
                                                     style: Theme.of(context)
                                                         .textTheme
                                                         .titleMedium
