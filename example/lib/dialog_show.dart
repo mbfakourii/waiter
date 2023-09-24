@@ -14,7 +14,7 @@ class _DialogShowState extends State<DialogShow> {
 
   @override
   void initState() {
-    Future.delayed(const Duration(milliseconds: 2000), () {
+    Future<void>.delayed(const Duration(milliseconds: 2000), () {
       waiterController.hiddenLoading('hiddenLoading');
     });
 
@@ -22,8 +22,7 @@ class _DialogShowState extends State<DialogShow> {
   }
 
   @override
-  Widget build(BuildContext context) {
-    return AlertDialog(
+  Widget build(final BuildContext context) => AlertDialog(
         backgroundColor: Colors.white,
         contentPadding: EdgeInsets.zero,
         content: ClipRRect(
@@ -72,6 +71,6 @@ class _DialogShowState extends State<DialogShow> {
               ),
             ),
           ),
-        ));
-  }
+        ),
+      );
 }

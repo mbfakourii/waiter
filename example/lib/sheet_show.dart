@@ -14,7 +14,7 @@ class _SheetShowState extends State<SheetShow> {
 
   @override
   void initState() {
-    Future.delayed(const Duration(milliseconds: 2000), () {
+    Future<void>.delayed(const Duration(milliseconds: 2000), () {
       waiterController.hiddenLoading('hiddenLoading');
     });
 
@@ -22,40 +22,38 @@ class _SheetShowState extends State<SheetShow> {
   }
 
   @override
-  Widget build(BuildContext context) {
-    return Container(
-      key: mainKey,
-      child: Waiter(
-        firstLoadShowLoading: true,
-        mainKey: mainKey,
-        controller: waiterController,
-        child: const Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          mainAxisSize: MainAxisSize.min,
-          children: <Widget>[
-            ListTile(
-              leading: Icon(Icons.email),
-              title: Text('Send email'),
-            ),
-            ListTile(
-              leading: Icon(Icons.phone),
-              title: Text('Call phone'),
-            ),
-            ListTile(
-              leading: Icon(Icons.access_time_filled),
-              title: Text('Time'),
-            ),
-            ListTile(
-              leading: Icon(Icons.code),
-              title: Text('Code'),
-            ),
-            ListTile(
-              leading: Icon(Icons.accessibility_new),
-              title: Text('Accessibility'),
-            ),
-          ],
+  Widget build(final BuildContext context) => Container(
+        key: mainKey,
+        child: Waiter(
+          firstLoadShowLoading: true,
+          mainKey: mainKey,
+          controller: waiterController,
+          child: const Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisSize: MainAxisSize.min,
+            children: <Widget>[
+              ListTile(
+                leading: Icon(Icons.email),
+                title: Text('Send email'),
+              ),
+              ListTile(
+                leading: Icon(Icons.phone),
+                title: Text('Call phone'),
+              ),
+              ListTile(
+                leading: Icon(Icons.access_time_filled),
+                title: Text('Time'),
+              ),
+              ListTile(
+                leading: Icon(Icons.code),
+                title: Text('Code'),
+              ),
+              ListTile(
+                leading: Icon(Icons.accessibility_new),
+                title: Text('Accessibility'),
+              ),
+            ],
+          ),
         ),
-      ),
-    );
-  }
+      );
 }

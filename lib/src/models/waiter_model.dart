@@ -1,3 +1,4 @@
+// ignore_for_file: avoid_returning_this
 class WaiterModel {
   bool isVisible = false;
 
@@ -13,14 +14,14 @@ class WaiterModel {
   }
 
   /// hidden loading.
-  WaiterModel hiddenLoading(String tag) {
+  WaiterModel hiddenLoading(final String tag) {
     type = 'hiddenLoading';
     isVisible = false;
     return this;
   }
 
   /// error without OK.
-  WaiterModel showErrorWithOutOK(String tag) {
+  WaiterModel showErrorWithOutOK(final String tag) {
     type = 'errorWithOutOK';
     isVisible = true;
     callBackTag = tag;
@@ -28,7 +29,7 @@ class WaiterModel {
   }
 
   /// show error.
-  WaiterModel showError(String tag) {
+  WaiterModel showError(final String tag) {
     type = 'error';
     isVisible = true;
     callBackTag = tag;
@@ -36,7 +37,7 @@ class WaiterModel {
   }
 
   /// show error with toast.
-  WaiterModel showErrorToast(String tag, String toast) {
+  WaiterModel showErrorToast(final String tag, final String toast) {
     type = 'error';
     isVisible = true;
     callBackTag = tag;
@@ -45,7 +46,7 @@ class WaiterModel {
   }
 
   /// show error without ok button and with toast.
-  WaiterModel showErrorToastWithOutOK(String tag, String toast) {
+  WaiterModel showErrorToastWithOutOK(final String tag, final String toast) {
     type = 'errorWithOutOK';
     isVisible = true;
     callBackTag = tag;
@@ -60,7 +61,7 @@ class WaiterModel {
   }
 
   /// show progress.
-  WaiterModel showProgress(String tag) {
+  WaiterModel showProgress(final String tag) {
     type = 'progress';
     isVisible = true;
     callBackTag = tag;

@@ -20,13 +20,11 @@ dependencies:
   fluttertoast: ^8.2.2
 
   # Screenutil
-  flutter_screenutil: ^5.8.4
+  flutter_screenutil: ^5.9.0
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
-
-  flutter_lints: ^2.0.2
 
 flutter:
   assets:

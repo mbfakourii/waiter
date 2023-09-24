@@ -2,12 +2,26 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:lottie/lottie.dart';
-
-import '../../waiter.dart';
+import 'package:waiter/waiter.dart';
 
 Language globalLanguage = Language();
 
 class Waiter extends StatefulWidget {
+  const Waiter({
+    required this.child,
+    required this.controller,
+    super.key,
+    this.mainKey,
+    this.onTry,
+    this.language,
+    this.onCancelProgress,
+    this.firstLoadShowLoading,
+    this.progress,
+    this.totalNumberProgress,
+    this.currentNumberProgress,
+    this.onDismissProgress,
+  });
+
   final ValueNotifier<double>? progress;
   final ValueNotifier<int>? totalNumberProgress;
   final ValueNotifier<int>? currentNumberProgress;
@@ -20,20 +34,6 @@ class Waiter extends StatefulWidget {
   final GestureTapCallback? onDismissProgress;
   final GlobalKey? mainKey;
   final Language? language;
-
-  const Waiter(
-      {super.key,
-      this.mainKey,
-      required this.child,
-      required this.controller,
-      this.onTry,
-      this.language,
-      this.onCancelProgress,
-      this.firstLoadShowLoading,
-      this.progress,
-      this.totalNumberProgress,
-      this.currentNumberProgress,
-      this.onDismissProgress});
 
   @override
   State<Waiter> createState() => _WaiterState();
@@ -54,9 +54,9 @@ class _WaiterState extends State<Waiter> {
 
   double sizeHeight = 0;
   double widthTryError = 0;
-  double showPercent = 0.0;
+  double showPercent = 0;
 
-  List<String> tags = [];
+  List<String> tags = <String>[];
 
   Color? backgroundColor = const Color(0xB4636060);
 
@@ -71,7 +71,7 @@ class _WaiterState extends State<Waiter> {
   }
 
   @override
-  void didUpdateWidget(covariant Waiter oldWidget) {
+  void didUpdateWidget(covariant final Waiter oldWidget) {
     setListeners();
     super.didUpdateWidget(oldWidget);
   }
@@ -86,13 +86,11 @@ class _WaiterState extends State<Waiter> {
       globalLanguage = widget.language!;
     }
 
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      if (widget.firstLoadShowLoading == true) {
+    WidgetsBinding.instance.addPostFrameCallback((final _) {
+      if (widget.firstLoadShowLoading ?? false) {
         setWidgetVisibility(
-            isLoading: true,
-            isError: false,
-            isProgress: false,
-            isErrorWithoutOK: false);
+          isLoading: true,
+        );
       }
     });
 
@@ -136,24 +134,21 @@ class _WaiterState extends State<Waiter> {
           case 'loading':
             {
               setWidgetVisibility(
-                  isLoading: true,
-                  isError: false,
-                  isProgress: false,
-                  isErrorWithoutOK: false);
+                isLoading: true,
+              );
               break;
             }
           case 'error':
             {
               currentSelectedTag = widget.controller.model.callBackTag;
               setWidgetVisibility(
-                  isLoading: false,
-                  isError: true,
-                  isProgress: false,
-                  isErrorWithoutOK: false);
+                isError: true,
+              );
               if (widget.controller.model.toastText != '') {
                 Fluttertoast.showToast(
-                    msg: widget.controller.model.toastText,
-                    toastLength: Toast.LENGTH_SHORT);
+                  msg: widget.controller.model.toastText,
+                  toastLength: Toast.LENGTH_SHORT,
+                );
               }
               break;
             }
@@ -161,20 +156,17 @@ class _WaiterState extends State<Waiter> {
           case 'errorWithOutOK':
             {
               setWidgetVisibility(
-                  isLoading: false,
-                  isError: true,
-                  isProgress: false,
-                  isErrorWithoutOK: true);
+                isError: true,
+                isErrorWithoutOK: true,
+              );
               break;
             }
 
           case 'progress':
             {
               setWidgetVisibility(
-                  isLoading: false,
-                  isError: false,
-                  isProgress: true,
-                  isErrorWithoutOK: false);
+                isProgress: true,
+              );
               break;
             }
         }
@@ -182,28 +174,21 @@ class _WaiterState extends State<Waiter> {
         if (currentSelectedTag == widget.controller.model.callBackTag) {
           currentSelectedTag = '';
           try {
-            setWidgetVisibility(
-                isLoading: false,
-                isError: false,
-                isProgress: false,
-                isErrorWithoutOK: false);
+            setWidgetVisibility();
           } catch (_) {}
         } else {
-          setWidgetVisibility(
-              isLoading: false,
-              isError: false,
-              isProgress: false,
-              isErrorWithoutOK: false);
+          setWidgetVisibility();
         }
       }
     });
   }
 
-  void setWidgetVisibility(
-      {bool isLoading = false,
-      bool isError = false,
-      bool isProgress = false,
-      bool isErrorWithoutOK = false}) {
+  void setWidgetVisibility({
+    final bool isLoading = false,
+    final bool isError = false,
+    final bool isProgress = false,
+    final bool isErrorWithoutOK = false,
+  }) {
     if (isError || isErrorWithoutOK) {
       tags.add(widget.controller.model.callBackTag);
     }
@@ -233,7 +218,7 @@ class _WaiterState extends State<Waiter> {
   }
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(final BuildContext context) {
     // this for sheet fit size
     if (widget.mainKey != null) {
       try {
@@ -245,8 +230,8 @@ class _WaiterState extends State<Waiter> {
     }
 
     cardRadios = Theme.of(context).useMaterial3
-        ? const BorderRadius.all(Radius.circular(12.0))
-        : const BorderRadius.all(Radius.circular(4.0));
+        ? const BorderRadius.all(Radius.circular(12))
+        : const BorderRadius.all(Radius.circular(4));
 
     try {
       // test for ScreenUtil initialize
@@ -255,25 +240,28 @@ class _WaiterState extends State<Waiter> {
     } catch (_) {
       ScreenUtil.init(context);
 
-      return FutureBuilder(
-          future: ScreenUtil.ensureScreenSize(),
-          builder: (context, snapshot) => _getMainWidget());
+      return FutureBuilder<void>(
+        future: ScreenUtil.ensureScreenSize(),
+        builder: (
+          final BuildContext context,
+          final AsyncSnapshot<Object?> snapshot,
+        ) =>
+            _getMainWidget(),
+      );
     }
   }
 
-  Widget _getMainWidget() {
-    return Material(
-      child: Stack(
-        fit: StackFit.loose,
-        alignment: AlignmentDirectional.center,
-        children: [
-          widget.child,
-          Visibility(
-            maintainSize: true,
-            maintainAnimation: true,
-            maintainState: true,
-            visible: isLoading,
-            child: Container(
+  Widget _getMainWidget() => Material(
+        child: Stack(
+          alignment: AlignmentDirectional.center,
+          children: <Widget>[
+            widget.child,
+            Visibility(
+              maintainSize: true,
+              maintainAnimation: true,
+              maintainState: true,
+              visible: isLoading,
+              child: Container(
                 height: widget.mainKey == null
                     ? null
                     : sizeHeight == 0
@@ -283,39 +271,43 @@ class _WaiterState extends State<Waiter> {
                 decoration: BoxDecoration(color: backgroundColor),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
+                  children: <Widget>[
                     Center(
-                        child: SizedBox(
-                            child: Lottie.asset(
-                      'packages/waiter/assets/loading.json',
-                      animate: animationLoading,
-                      delegates: LottieDelegates(
-                        values: [
-                          ValueDelegate.colorFilter(
-                            const ['icon', '**'],
-                            value: ColorFilter.mode(
-                                Theme.of(context).colorScheme.primary,
-                                BlendMode.src),
+                      child: SizedBox(
+                        child: Lottie.asset(
+                          'packages/waiter/assets/loading.json',
+                          animate: animationLoading,
+                          delegates: LottieDelegates(
+                            values: <ValueDelegate<dynamic>>[
+                              ValueDelegate.colorFilter(
+                                const <String>['icon', '**'],
+                                value: ColorFilter.mode(
+                                  Theme.of(context).colorScheme.primary,
+                                  BlendMode.src,
+                                ),
+                              ),
+                              ValueDelegate.colorFilter(
+                                const <String>['icon 2', '**'],
+                                value: ColorFilter.mode(
+                                  Theme.of(context).colorScheme.primary,
+                                  BlendMode.src,
+                                ),
+                              ),
+                            ],
                           ),
-                          ValueDelegate.colorFilter(
-                            const ['icon 2', '**'],
-                            value: ColorFilter.mode(
-                                Theme.of(context).colorScheme.primary,
-                                BlendMode.src),
-                          ),
-                        ],
+                        ),
                       ),
-                    )))
+                    ),
                   ],
-                )),
-          ),
-          Visibility(
-            maintainSize: true,
-            maintainAnimation: true,
-            maintainState: true,
-            visible: isError,
-            child: Container(
+                ),
+              ),
+            ),
+            Visibility(
+              maintainSize: true,
+              maintainAnimation: true,
+              maintainState: true,
+              visible: isError,
+              child: Container(
                 height: widget.mainKey == null
                     ? null
                     : sizeHeight == 0
@@ -324,48 +316,51 @@ class _WaiterState extends State<Waiter> {
                 decoration: BoxDecoration(color: backgroundColor),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
+                  children: <Widget>[
                     Center(
-                        child: SizedBox(
-                      width: 280.w,
-                      child: Card(
-                        child: Padding(
-                          padding: const EdgeInsets.all(6.0),
-                          child: Column(
-                            children: [
-                              Lottie.asset(
-                                'packages/waiter/assets/error.json',
-                                repeat: false,
-                                animate: animationError,
-                                delegates: LottieDelegates(
-                                  values: [
-                                    ValueDelegate.colorFilter(
-                                      const ['Rectangle 6 Copy', '**'],
-                                      value: ColorFilter.mode(
+                      child: SizedBox(
+                        width: 280.w,
+                        child: Card(
+                          child: Padding(
+                            padding: const EdgeInsets.all(6),
+                            child: Column(
+                              children: <Widget>[
+                                Lottie.asset(
+                                  'packages/waiter/assets/error.json',
+                                  repeat: false,
+                                  animate: animationError,
+                                  delegates: LottieDelegates(
+                                    values: <ValueDelegate<dynamic>>[
+                                      ValueDelegate.colorFilter(
+                                        const <String>[
+                                          'Rectangle 6 Copy',
+                                          '**',
+                                        ],
+                                        value: ColorFilter.mode(
                                           Theme.of(context).colorScheme.primary,
-                                          BlendMode.src),
-                                    ),
-                                    ValueDelegate.colorFilter(
-                                      const ['Combined Shape', '**'],
-                                      value: ColorFilter.mode(
+                                          BlendMode.src,
+                                        ),
+                                      ),
+                                      ValueDelegate.colorFilter(
+                                        const <String>['Combined Shape', '**'],
+                                        value: ColorFilter.mode(
                                           Theme.of(context)
                                               .colorScheme
                                               .background,
-                                          BlendMode.src),
-                                    ),
-                                  ],
+                                          BlendMode.src,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
                                 ),
-                              ),
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                children: <Widget>[
-                                  Visibility(
-                                    visible: !isErrorWithoutOK,
-                                    child: Flexible(
-                                      flex: 2,
-                                      child: Container(
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: <Widget>[
+                                    Visibility(
+                                      visible: !isErrorWithoutOK,
+                                      child: Flexible(
+                                        flex: 2,
+                                        child: Container(
                                           color: Colors.transparent,
                                           width: 90.w,
                                           child: TextButton(
@@ -375,29 +370,31 @@ class _WaiterState extends State<Waiter> {
                                                   .textTheme
                                                   .titleMedium
                                                   ?.copyWith(
-                                                      color: Theme.of(context)
-                                                          .colorScheme
-                                                          .primary,
-                                                      fontWeight:
-                                                          FontWeight.bold),
+                                                    color: Theme.of(context)
+                                                        .colorScheme
+                                                        .primary,
+                                                    fontWeight: FontWeight.bold,
+                                                  ),
                                             ),
                                             onPressed: () {
                                               widget.controller.hiddenLoading(
-                                                  widget.controller.model
-                                                      .callBackTag);
+                                                widget.controller.model
+                                                    .callBackTag,
+                                              );
                                             },
-                                          )),
+                                          ),
+                                        ),
+                                      ),
                                     ),
-                                  ),
-                                  Visibility(
-                                    visible: !isErrorWithoutOK,
-                                    child: SizedBox(
-                                      width: 30.w,
+                                    Visibility(
+                                      visible: !isErrorWithoutOK,
+                                      child: SizedBox(
+                                        width: 30.w,
+                                      ),
                                     ),
-                                  ),
-                                  Flexible(
-                                    flex: 2,
-                                    child: Container(
+                                    Flexible(
+                                      flex: 2,
+                                      child: Container(
                                         color: Colors.transparent,
                                         width: widthTryError,
                                         child: TextButton(
@@ -407,49 +404,54 @@ class _WaiterState extends State<Waiter> {
                                                 .textTheme
                                                 .titleMedium
                                                 ?.copyWith(
-                                                    color: Theme.of(context)
-                                                        .colorScheme
-                                                        .primary,
-                                                    fontWeight:
-                                                        FontWeight.bold),
+                                                  color: Theme.of(context)
+                                                      .colorScheme
+                                                      .primary,
+                                                  fontWeight: FontWeight.bold,
+                                                ),
                                           ),
                                           onPressed: () {
                                             if (tags.isEmpty) {
-                                              throw 'tags is empty!';
+                                              throw ArgumentError(
+                                                'tags is empty!',
+                                              );
                                             }
 
-                                            for (var tag
-                                                in Set<String>.from(tags)
-                                                    .toList()) {
+                                            Set<String>.from(tags)
+                                                .toList()
+                                                .forEach((final String tag) {
                                               widget.onTry!.call(tag);
-                                            }
+                                            });
 
                                             tags.clear();
 
                                             widget.controller.showLoading();
                                           },
-                                        )),
-                                  ),
-                                ],
-                              )
-                            ],
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ],
+                            ),
                           ),
                         ),
                       ),
-                    )),
+                    ),
                   ],
-                )),
-          ),
-          Visibility(
-            maintainSize: true,
-            maintainAnimation: true,
-            maintainState: true,
-            visible: isProgress,
-            child: InkWell(
-              splashColor: Colors.transparent,
-              highlightColor: Colors.transparent,
-              onTap: widget.onDismissProgress,
-              child: Container(
+                ),
+              ),
+            ),
+            Visibility(
+              maintainSize: true,
+              maintainAnimation: true,
+              maintainState: true,
+              visible: isProgress,
+              child: InkWell(
+                splashColor: Colors.transparent,
+                highlightColor: Colors.transparent,
+                onTap: widget.onDismissProgress,
+                child: Container(
                   height: widget.mainKey == null
                       ? null
                       : sizeHeight == 0
@@ -458,156 +460,163 @@ class _WaiterState extends State<Waiter> {
                   decoration: BoxDecoration(color: backgroundColor),
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
+                    children: <Widget>[
                       Center(
-                          child: SizedBox(
-                              width: 280.w,
-                              child: Card(
-                                  child: Padding(
-                                padding: const EdgeInsets.all(5.0),
-                                child: Column(
-                                  children: [
-                                    Container(
-                                      padding: EdgeInsets.only(
-                                          bottom: 5.h, top: 5.h),
-                                      child: Text(
-                                        globalLanguage.pleaseWait,
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .titleMedium
-                                            ?.copyWith(
-                                                color: Theme.of(context)
-                                                    .colorScheme
-                                                    .secondary,
-                                                fontWeight: FontWeight.bold),
-                                      ),
+                        child: SizedBox(
+                          width: 280.w,
+                          child: Card(
+                            child: Padding(
+                              padding: const EdgeInsets.all(5),
+                              child: Column(
+                                children: <Widget>[
+                                  Container(
+                                    padding: EdgeInsets.only(
+                                      bottom: 5.h,
+                                      top: 5.h,
                                     ),
-                                    Container(
-                                      padding: const EdgeInsets.only(
-                                          left: 10, right: 10, top: 10),
-                                      child: Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
-                                        children: <Widget>[
-                                          Padding(
-                                            padding: const EdgeInsetsDirectional
-                                                .only(end: 9),
-                                            child: Text(
-                                              '%$textPercent',
-                                              style: Theme.of(context)
-                                                  .textTheme
-                                                  .titleMedium
-                                                  ?.copyWith(
-                                                      color: Theme.of(context)
-                                                          .colorScheme
-                                                          .secondary,
-                                                      fontWeight:
-                                                          FontWeight.bold),
-                                            ),
+                                    child: Text(
+                                      globalLanguage.pleaseWait,
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .titleMedium
+                                          ?.copyWith(
+                                            color: Theme.of(context)
+                                                .colorScheme
+                                                .secondary,
+                                            fontWeight: FontWeight.bold,
                                           ),
-                                          Expanded(
-                                            child: Padding(
-                                              padding: const EdgeInsets.only(
-                                                  bottom: 5),
-                                              child: SizedBox(
-                                                  width: double.infinity,
-                                                  child: ClipRRect(
-                                                    borderRadius: cardRadios,
-                                                    child:
-                                                        LinearProgressIndicator(
-                                                      value: showPercent / 100,
-                                                      backgroundColor:
-                                                          Theme.of(context)
-                                                              .colorScheme
-                                                              .onSecondary,
-                                                      valueColor:
-                                                          AlwaysStoppedAnimation<
-                                                                  Color>(
-                                                              Theme.of(context)
-                                                                  .colorScheme
-                                                                  .primary),
-                                                    ),
-                                                  )),
-                                            ),
-                                          ),
-                                          if (textTotal != '0' &&
-                                              textTotal != '1')
-                                            Padding(
-                                              padding:
-                                                  const EdgeInsetsDirectional
-                                                      .only(start: 9),
-                                              child: Row(
-                                                children: [
-                                                  Text(
-                                                    '$textCurrent/',
-                                                    style: Theme.of(context)
-                                                        .textTheme
-                                                        .titleMedium
-                                                        ?.copyWith(
-                                                            color: Theme.of(
-                                                                    context)
-                                                                .colorScheme
-                                                                .secondary,
-                                                            fontWeight:
-                                                                FontWeight
-                                                                    .bold),
-                                                  ),
-                                                  Text(
-                                                    textTotal,
-                                                    style: Theme.of(context)
-                                                        .textTheme
-                                                        .titleMedium
-                                                        ?.copyWith(
-                                                            color: Theme.of(
-                                                                    context)
-                                                                .colorScheme
-                                                                .secondary,
-                                                            fontWeight:
-                                                                FontWeight
-                                                                    .bold),
-                                                  ),
-                                                ],
-                                              ),
-                                            ),
-                                        ],
-                                      ),
                                     ),
-                                    Container(
-                                        color: Colors.transparent,
-                                        width: widthTryError,
-                                        child: TextButton(
+                                  ),
+                                  Container(
+                                    padding: const EdgeInsets.only(
+                                      left: 10,
+                                      right: 10,
+                                      top: 10,
+                                    ),
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: <Widget>[
+                                        Padding(
+                                          padding:
+                                              const EdgeInsetsDirectional.only(
+                                            end: 9,
+                                          ),
                                           child: Text(
-                                            globalLanguage.cancel,
+                                            '%$textPercent',
                                             style: Theme.of(context)
                                                 .textTheme
                                                 .titleMedium
                                                 ?.copyWith(
-                                                    color: Theme.of(context)
+                                                  color: Theme.of(context)
+                                                      .colorScheme
+                                                      .secondary,
+                                                  fontWeight: FontWeight.bold,
+                                                ),
+                                          ),
+                                        ),
+                                        Expanded(
+                                          child: Padding(
+                                            padding: const EdgeInsets.only(
+                                              bottom: 5,
+                                            ),
+                                            child: SizedBox(
+                                              width: double.infinity,
+                                              child: ClipRRect(
+                                                borderRadius: cardRadios,
+                                                child: LinearProgressIndicator(
+                                                  value: showPercent / 100,
+                                                  backgroundColor:
+                                                      Theme.of(context)
+                                                          .colorScheme
+                                                          .onSecondary,
+                                                  valueColor:
+                                                      AlwaysStoppedAnimation<
+                                                          Color>(
+                                                    Theme.of(context)
                                                         .colorScheme
                                                         .primary,
-                                                    fontWeight:
-                                                        FontWeight.bold),
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
                                           ),
-                                          onPressed: () {
-                                            widget.onCancelProgress?.call(widget
-                                                .controller.model.callBackTag);
-                                            setWidgetVisibility(
-                                                isLoading: false,
-                                                isError: false,
-                                                isProgress: false,
-                                                isErrorWithoutOK: false);
-                                          },
-                                        )),
-                                  ],
-                                ),
-                              ))))
+                                        ),
+                                        if (textTotal != '0' &&
+                                            textTotal != '1')
+                                          Padding(
+                                            padding: const EdgeInsetsDirectional
+                                                .only(start: 9),
+                                            child: Row(
+                                              children: <Widget>[
+                                                Text(
+                                                  '$textCurrent/',
+                                                  style: Theme.of(context)
+                                                      .textTheme
+                                                      .titleMedium
+                                                      ?.copyWith(
+                                                        color: Theme.of(
+                                                          context,
+                                                        ).colorScheme.secondary,
+                                                        fontWeight:
+                                                            FontWeight.bold,
+                                                      ),
+                                                ),
+                                                Text(
+                                                  textTotal,
+                                                  style: Theme.of(context)
+                                                      .textTheme
+                                                      .titleMedium
+                                                      ?.copyWith(
+                                                        color: Theme.of(
+                                                          context,
+                                                        ).colorScheme.secondary,
+                                                        fontWeight:
+                                                            FontWeight.bold,
+                                                      ),
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                      ],
+                                    ),
+                                  ),
+                                  Container(
+                                    color: Colors.transparent,
+                                    width: widthTryError,
+                                    child: TextButton(
+                                      child: Text(
+                                        globalLanguage.cancel,
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .titleMedium
+                                            ?.copyWith(
+                                              color: Theme.of(context)
+                                                  .colorScheme
+                                                  .primary,
+                                              fontWeight: FontWeight.bold,
+                                            ),
+                                      ),
+                                      onPressed: () {
+                                        widget.onCancelProgress?.call(
+                                          widget.controller.model.callBackTag,
+                                        );
+                                        setWidgetVisibility();
+                                      },
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
                     ],
-                  )),
+                  ),
+                ),
+              ),
             ),
-          ),
-        ],
-      ),
-    );
-  }
+          ],
+        ),
+      );
 }

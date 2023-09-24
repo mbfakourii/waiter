@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-
-import '../../waiter.dart';
+import 'package:waiter/waiter.dart';
 
 class WaiterController extends ValueNotifier<WaiterValue> {
   WaiterController() : super(WaiterValue(model: WaiterModel()));
@@ -11,7 +10,7 @@ class WaiterController extends ValueNotifier<WaiterValue> {
   /// main waiter model.
   WaiterModel get model => value.model;
 
-  set _model(WaiterModel newElm) {
+  set model(final WaiterModel newElm) {
     value = value.copyWith(
       model: newElm,
     );
@@ -30,63 +29,63 @@ class WaiterController extends ValueNotifier<WaiterValue> {
 
   /// show loading.
   void showLoading() {
-    _model = WaiterModel().showLoading();
+    model = WaiterModel().showLoading();
   }
 
   /// hidden loading.
   ///
   /// The [tag] To hide a specific tag.
-  void hiddenLoading(String tag) {
-    _model = WaiterModel().hiddenLoading(tag);
+  void hiddenLoading(final String tag) {
+    model = WaiterModel().hiddenLoading(tag);
   }
 
   /// show error.
   ///
   /// The [tag] set a specific tag.
-  void showError(String tag) {
-    _model = WaiterModel().showError(tag);
+  void showError(final String tag) {
+    model = WaiterModel().showError(tag);
   }
 
   /// show error with toast.
   ///
   /// The [tag] set a specific tag.
   /// The [toast] text after show error.
-  void showErrorToast(String tag, String toast) {
-    _model = WaiterModel().showErrorToast(tag, toast);
+  void showErrorToast(final String tag, final String toast) {
+    model = WaiterModel().showErrorToast(tag, toast);
   }
 
   /// show error without OK Button.
   ///
   /// The [tag] set a specific tag.
-  void showErrorWithOutOK(String tag) {
-    _model = WaiterModel().showErrorWithOutOK(tag);
+  void showErrorWithOutOK(final String tag) {
+    model = WaiterModel().showErrorWithOutOK(tag);
   }
 
   /// show error without OK Button and with toast.
   ///
   /// The [tag] set a specific tag.
   /// The [toast] text after show error without OK Button.
-  void showErrorToastWithOutOK(String tag, String toast) {
-    _model = WaiterModel().showErrorToastWithOutOK(tag, toast);
+  void showErrorToastWithOutOK(final String tag, final String toast) {
+    model = WaiterModel().showErrorToastWithOutOK(tag, toast);
   }
 
   /// hidden error.
   void hiddenError() {
-    _model = WaiterModel().hiddenError();
+    model = WaiterModel().hiddenError();
   }
 
   /// show progress.
   ///
   /// The [tag] set a specific tag.
-  void showProgress(String tag) {
-    _model = WaiterModel().showProgress(tag);
+  void showProgress(final String tag) {
+    model = WaiterModel().showProgress(tag);
   }
 
   /// hidden progress.
   ///
   /// The [tag] set a specific tag.
-  void hiddenProgress(String tag) {
-    _model = WaiterModel().hiddenLoading(tag);
+  void hiddenProgress(final String tag) {
+    model = WaiterModel().hiddenLoading(tag);
   }
 }
 
@@ -99,10 +98,9 @@ class WaiterValue {
   final WaiterModel model;
 
   WaiterValue copyWith({
-    required WaiterModel model,
-  }) {
-    return WaiterValue(
-      model: model,
-    );
-  }
+    required final WaiterModel model,
+  }) =>
+      WaiterValue(
+        model: model,
+      );
 }
