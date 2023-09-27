@@ -1,9 +1,9 @@
 /// language texts.
-class Language {
-  Language();
+class WaiterLanguage {
+  WaiterLanguage();
 
   /// help for cheng language texts.
-  Language.copy({
+  WaiterLanguage.copy({
     required this.confirm,
     required this.pleaseWait,
     required this.cancel,

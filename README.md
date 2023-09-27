@@ -90,7 +90,7 @@ progress.value = 50.0;
 There is a possibility of customization for different languages in this package</br>
 
 ```dart
-Language language = Language.copy(
+WaiterLanguage language = WaiterLanguage.copy(
     confirm: S.current.confirm,
     pleaseWait: S.current.pleaseWait,
     cancel: S.current.cancel,
@@ -103,7 +103,7 @@ Waiter(
 );   
 ```
 
-```S``` For intl Package
+```S``` For [intl Package](https://pub.dev/packages/intl)
 
 ## Getting Started
 

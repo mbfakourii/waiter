@@ -4,7 +4,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:lottie/lottie.dart';
 import 'package:waiter/waiter.dart';
 
-Language globalLanguage = Language();
+WaiterLanguage globalWaiterLanguage = WaiterLanguage();
 
 class Waiter extends StatefulWidget {
   const Waiter({
@@ -33,7 +33,7 @@ class Waiter extends StatefulWidget {
   final bool? firstLoadShowLoading;
   final GestureTapCallback? onDismissProgress;
   final GlobalKey? mainKey;
-  final Language? language;
+  final WaiterLanguage? language;
 
   @override
   State<Waiter> createState() => _WaiterState();
@@ -83,7 +83,7 @@ class _WaiterState extends State<Waiter> {
     super.initState();
 
     if (widget.language != null) {
-      globalLanguage = widget.language!;
+      globalWaiterLanguage = widget.language!;
     }
 
     WidgetsBinding.instance.addPostFrameCallback((final _) {
@@ -365,7 +365,7 @@ class _WaiterState extends State<Waiter> {
                                           width: 90.w,
                                           child: TextButton(
                                             child: Text(
-                                              globalLanguage.confirm,
+                                              globalWaiterLanguage.confirm,
                                               style: Theme.of(context)
                                                   .textTheme
                                                   .titleMedium
@@ -399,7 +399,7 @@ class _WaiterState extends State<Waiter> {
                                         width: widthTryError,
                                         child: TextButton(
                                           child: Text(
-                                            globalLanguage.tryAgain,
+                                            globalWaiterLanguage.tryAgain,
                                             style: Theme.of(context)
                                                 .textTheme
                                                 .titleMedium
@@ -475,7 +475,7 @@ class _WaiterState extends State<Waiter> {
                                       top: 5.h,
                                     ),
                                     child: Text(
-                                      globalLanguage.pleaseWait,
+                                      globalWaiterLanguage.pleaseWait,
                                       style: Theme.of(context)
                                           .textTheme
                                           .titleMedium
@@ -586,7 +586,7 @@ class _WaiterState extends State<Waiter> {
                                     width: widthTryError,
                                     child: TextButton(
                                       child: Text(
-                                        globalLanguage.cancel,
+                                        globalWaiterLanguage.cancel,
                                         style: Theme.of(context)
                                             .textTheme
                                             .titleMedium
