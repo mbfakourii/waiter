@@ -1,3 +1,11 @@
+## 1.0.4
+
+* Upgrade package dependencies
+
+## 1.0.3
+
+* fix pub dev errors
+
 ## 1.0.3
 
 * fix pub dev errors
