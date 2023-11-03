@@ -252,6 +252,7 @@ class _WaiterState extends State<Waiter> {
   }
 
   Widget _getMainWidget() => Material(
+        color: Colors.transparent,
         child: Stack(
           alignment: AlignmentDirectional.center,
           children: <Widget>[
