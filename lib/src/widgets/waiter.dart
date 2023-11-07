@@ -275,6 +275,11 @@ class _WaiterState extends State<Waiter> {
                   children: <Widget>[
                     Center(
                       child: SizedBox(
+                        height: widget.mainKey == null
+                            ? null
+                            : sizeHeight == 0
+                                ? 0
+                                : sizeHeight,
                         child: Lottie.asset(
                           'packages/waiter/assets/loading.json',
                           animate: animationLoading,
@@ -309,6 +314,7 @@ class _WaiterState extends State<Waiter> {
               maintainState: true,
               visible: isError,
               child: Container(
+                width: double.maxFinite,
                 height: widget.mainKey == null
                     ? null
                     : sizeHeight == 0
@@ -321,117 +327,35 @@ class _WaiterState extends State<Waiter> {
                     Center(
                       child: SizedBox(
                         width: 280.w,
+                        height: widget.mainKey == null
+                            ? null
+                            : sizeHeight == 0
+                                ? 0
+                                : sizeHeight,
                         child: Card(
                           child: Padding(
                             padding: const EdgeInsets.all(6),
                             child: Column(
+                              mainAxisSize: MainAxisSize.min,
                               children: <Widget>[
-                                Lottie.asset(
-                                  'packages/waiter/assets/error.json',
-                                  repeat: false,
-                                  animate: animationError,
-                                  delegates: LottieDelegates(
-                                    values: <ValueDelegate<dynamic>>[
-                                      ValueDelegate.colorFilter(
-                                        const <String>[
-                                          'Rectangle 6 Copy',
-                                          '**',
-                                        ],
-                                        value: ColorFilter.mode(
-                                          Theme.of(context).colorScheme.primary,
-                                          BlendMode.src,
-                                        ),
-                                      ),
-                                      ValueDelegate.colorFilter(
-                                        const <String>['Combined Shape', '**'],
-                                        value: ColorFilter.mode(
-                                          Theme.of(context)
-                                              .colorScheme
-                                              .background,
-                                          BlendMode.src,
-                                        ),
-                                      ),
-                                    ],
+                                Visibility(
+                                  visible: widget.mainKey == null,
+                                  child: _errorLoading(),
+                                ),
+                                Visibility(
+                                  visible: widget.mainKey == null,
+                                  child: _errorText(),
+                                ),
+                                Visibility(
+                                  visible: widget.mainKey != null,
+                                  child: Expanded(
+                                    flex: 2,
+                                    child: _errorLoading(),
                                   ),
                                 ),
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: <Widget>[
-                                    Visibility(
-                                      visible: !isErrorWithoutOK,
-                                      child: Flexible(
-                                        flex: 2,
-                                        child: Container(
-                                          color: Colors.transparent,
-                                          width: 90.w,
-                                          child: TextButton(
-                                            child: Text(
-                                              globalWaiterLanguage.confirm,
-                                              style: Theme.of(context)
-                                                  .textTheme
-                                                  .titleMedium
-                                                  ?.copyWith(
-                                                    color: Theme.of(context)
-                                                        .colorScheme
-                                                        .primary,
-                                                    fontWeight: FontWeight.bold,
-                                                  ),
-                                            ),
-                                            onPressed: () {
-                                              widget.controller.hiddenLoading(
-                                                widget.controller.model
-                                                    .callBackTag,
-                                              );
-                                            },
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                    Visibility(
-                                      visible: !isErrorWithoutOK,
-                                      child: SizedBox(
-                                        width: 30.w,
-                                      ),
-                                    ),
-                                    Flexible(
-                                      flex: 2,
-                                      child: Container(
-                                        color: Colors.transparent,
-                                        width: widthTryError,
-                                        child: TextButton(
-                                          child: Text(
-                                            globalWaiterLanguage.tryAgain,
-                                            style: Theme.of(context)
-                                                .textTheme
-                                                .titleMedium
-                                                ?.copyWith(
-                                                  color: Theme.of(context)
-                                                      .colorScheme
-                                                      .primary,
-                                                  fontWeight: FontWeight.bold,
-                                                ),
-                                          ),
-                                          onPressed: () {
-                                            if (tags.isEmpty) {
-                                              throw ArgumentError(
-                                                'tags is empty!',
-                                              );
-                                            }
-
-                                            Set<String>.from(tags)
-                                                .toList()
-                                                .forEach((final String tag) {
-                                              widget.onTry!.call(tag);
-                                            });
-
-                                            tags.clear();
-
-                                            widget.controller.showLoading();
-                                          },
-                                        ),
-                                      ),
-                                    ),
-                                  ],
+                                Visibility(
+                                  visible: widget.mainKey != null,
+                                  child: Expanded(child: _errorText()),
                                 ),
                               ],
                             ),
@@ -619,5 +543,99 @@ class _WaiterState extends State<Waiter> {
             ),
           ],
         ),
+      );
+
+  Widget _errorLoading() => Lottie.asset(
+        'packages/waiter/assets/error.json',
+        repeat: false,
+        animate: animationError,
+        delegates: LottieDelegates(
+          values: <ValueDelegate<dynamic>>[
+            ValueDelegate.colorFilter(
+              const <String>[
+                'Rectangle 6 Copy',
+                '**',
+              ],
+              value: ColorFilter.mode(
+                Theme.of(context).colorScheme.primary,
+                BlendMode.src,
+              ),
+            ),
+            ValueDelegate.colorFilter(
+              const <String>['Combined Shape', '**'],
+              value: ColorFilter.mode(
+                Theme.of(context).colorScheme.background,
+                BlendMode.src,
+              ),
+            ),
+          ],
+        ),
+      );
+
+  Widget _errorText() => Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: <Widget>[
+          Visibility(
+            visible: !isErrorWithoutOK,
+            child: Flexible(
+              flex: 2,
+              child: Container(
+                color: Colors.transparent,
+                width: 90.w,
+                child: TextButton(
+                  child: Text(
+                    globalWaiterLanguage.confirm,
+                    style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                          color: Theme.of(context).colorScheme.primary,
+                          fontWeight: FontWeight.bold,
+                        ),
+                  ),
+                  onPressed: () {
+                    widget.controller.hiddenLoading(
+                      widget.controller.model.callBackTag,
+                    );
+                  },
+                ),
+              ),
+            ),
+          ),
+          Visibility(
+            visible: !isErrorWithoutOK,
+            child: SizedBox(
+              width: 30.w,
+            ),
+          ),
+          Flexible(
+            flex: 2,
+            child: Container(
+              color: Colors.transparent,
+              width: widthTryError,
+              child: TextButton(
+                child: Text(
+                  globalWaiterLanguage.tryAgain,
+                  style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                        color: Theme.of(context).colorScheme.primary,
+                        fontWeight: FontWeight.bold,
+                      ),
+                ),
+                onPressed: () {
+                  if (tags.isEmpty) {
+                    throw ArgumentError(
+                      'tags is empty!',
+                    );
+                  }
+
+                  Set<String>.from(tags).toList().forEach((final String tag) {
+                    widget.onTry!.call(tag);
+                  });
+
+                  tags.clear();
+
+                  widget.controller.showLoading();
+                },
+              ),
+            ),
+          ),
+        ],
       );
 }
