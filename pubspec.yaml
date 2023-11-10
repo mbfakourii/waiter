@@ -21,10 +21,10 @@ dependencies:
     sdk: flutter
 
   # Lottie
-  lottie: ^2.6.0
+  lottie: ^2.7.0
 
   # Toast
-  fluttertoast: ^8.2.2
+  fluttertoast: ^8.2.3
 
   # Screenutil
   flutter_screenutil: ^5.9.0
