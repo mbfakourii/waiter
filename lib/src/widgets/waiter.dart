@@ -337,6 +337,7 @@ class _WaiterState extends State<Waiter> {
                             padding: const EdgeInsets.all(6),
                             child: Column(
                               mainAxisSize: MainAxisSize.min,
+                              mainAxisAlignment: MainAxisAlignment.center,
                               children: <Widget>[
                                 Visibility(
                                   visible: widget.mainKey == null,
@@ -348,14 +349,16 @@ class _WaiterState extends State<Waiter> {
                                 ),
                                 Visibility(
                                   visible: widget.mainKey != null,
-                                  child: Expanded(
-                                    flex: 2,
-                                    child: _errorLoading(),
-                                  ),
+                                  child: _errorLoading(),
                                 ),
                                 Visibility(
                                   visible: widget.mainKey != null,
-                                  child: Expanded(child: _errorText()),
+                                  child: Padding(
+                                    padding: const EdgeInsetsDirectional.only(
+                                      top: 8,
+                                    ),
+                                    child: _errorText(),
+                                  ),
                                 ),
                               ],
                             ),
