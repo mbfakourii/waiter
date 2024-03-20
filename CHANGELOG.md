@@ -1,3 +1,7 @@
+## 1.0.5
+
+* Upgrade package dependencies
+
 ## 1.0.4
 
 * Upgrade package dependencies

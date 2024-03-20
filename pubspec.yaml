@@ -1,6 +1,6 @@
 name: waiter
 description: A Flutter package to display loading indicators, error messages, and progress bars.
-version: 1.0.4
+version: 1.0.5
 homepage: https://github.com/mbfakourii/waiter
 repository: https://github.com/mbfakourii/waiter
 issue_tracker: https://github.com/mbfakourii/waiter/issues
@@ -21,10 +21,10 @@ dependencies:
     sdk: flutter
 
   # Lottie
-  lottie: ^2.7.0
+  lottie: ^3.1.0
 
   # Toast
-  fluttertoast: ^8.2.3
+  fluttertoast: ^8.2.4
 
   # Screenutil
   flutter_screenutil: ^5.9.0
