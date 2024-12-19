@@ -1,6 +1,6 @@
 name: waiter
 description: A Flutter package to display loading indicators, error messages, and progress bars.
-version: 1.0.5
+version: 1.0.6
 homepage: https://github.com/mbfakourii/waiter
 repository: https://github.com/mbfakourii/waiter
 issue_tracker: https://github.com/mbfakourii/waiter/issues
@@ -36,21 +36,6 @@ dev_dependencies:
 flutter:
   assets:
     - assets/
-
-  plugin:
-    platforms:
-      android:
-        default_package: waiter
-      ios:
-        default_package: waiter
-      linux:
-        default_package: waiter
-      macos:
-        default_package: waiter
-      web:
-        default_package: waiter
-      windows:
-        default_package: waiter
 
 screenshots:
   - description: Waiter logo.
