@@ -390,8 +390,9 @@ class _WaiterState extends State<Waiter> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
                       Center(
-                        child: SizedBox(
-                          width: 280.w,
+                        child: ConstrainedBox(
+                          constraints: const BoxConstraints(maxWidth: 600),
+                          // width: 280.w,
                           child: Card(
                             child: Padding(
                               padding: const EdgeInsets.all(5),
@@ -567,7 +568,7 @@ class _WaiterState extends State<Waiter> {
             ValueDelegate.colorFilter(
               const <String>['Combined Shape', '**'],
               value: ColorFilter.mode(
-                Theme.of(context).colorScheme.background,
+                Theme.of(context).colorScheme.surface,
                 BlendMode.src,
               ),
             ),

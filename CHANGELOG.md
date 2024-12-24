@@ -1,4 +1,4 @@
-## 1.0.6
+## 1.0.7
 
 * Fix warning in flutter 3.27.0
 
