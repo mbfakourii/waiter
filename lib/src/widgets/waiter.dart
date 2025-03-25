@@ -39,6 +39,9 @@ class Waiter extends StatefulWidget {
   State<Waiter> createState() => _WaiterState();
 }
 
+String? lastToastMessage;
+DateTime? lastToastTime;
+
 class _WaiterState extends State<Waiter> {
   bool isErrorWithoutOK = false;
   bool isError = false;
@@ -145,10 +148,18 @@ class _WaiterState extends State<Waiter> {
                 isError: true,
               );
               if (widget.controller.model.toastText != '') {
-                Fluttertoast.showToast(
-                  msg: widget.controller.model.toastText,
-                  toastLength: Toast.LENGTH_SHORT,
-                );
+                final DateTime now = DateTime.now();
+                if (lastToastMessage != widget.controller.model.toastText ||
+                    lastToastTime == null ||
+                    now.difference(lastToastTime!).inSeconds > 60) {
+                  lastToastMessage = widget.controller.model.toastText;
+                  lastToastTime = now;
+
+                  Fluttertoast.showToast(
+                    msg: widget.controller.model.toastText,
+                    toastLength: Toast.LENGTH_SHORT,
+                  );
+                }
               }
               break;
             }
